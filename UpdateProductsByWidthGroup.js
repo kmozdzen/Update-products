@@ -3,8 +3,6 @@ const UserData = require('./UserData');
 
 // Dane logowania
 const url = UserData.url;
-const username = UserData.username;
-const password = UserData.password;
 const token = UserData.token;
 
 // Dane sklepu
@@ -133,28 +131,6 @@ const config = {
         Authorization: `Bearer ${token}` 
     }
 };
-
-// Funkcja do logowania, generuje i ustawia token
-async function login() {
-    try {
-        const response = await axios.post(url + '/webapi/rest/auth', {}, {
-        auth: {
-            username: username,
-            password: password
-        }
-        });
-
-        // Sprawdź status odpowiedzi
-        if (response.status === 200) {
-            token = response.data.access_token;
-            console.log('Zalogowano pomyślnie. Token:', token);
-        } else {
-            console.log('Błąd logowania:', response.statusText);
-        }
-    } catch (error) {
-        console.error('Błąd logowania:', error.message);
-    }
-}
 
 // Funkcja do pobierania wszystkich stron produktów
 async function fetchAllPages() {
@@ -307,9 +283,6 @@ async function update_product(product_data) {
 
 // Wywołaj funkcję logowania i pobierania produktów
 async function main() {
-    //LOGOWANIE
-    //await login();
-
     //WYBRANY PRODUKT
     //     let product_data = await get_product();
     //     if (product_data) {
