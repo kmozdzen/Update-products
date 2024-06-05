@@ -1,4 +1,4 @@
-## Skrypt do pobierania produktów ze sklepu oraz aktualizowania względem grup szerokości projekcyjnej.
+## Skrypt do pracy do pobierania produktów ze sklepu oraz aktualizowania względem grup szerokości projekcyjnej.
 
 Przykład:<br />
 Ekran projekcyjny o szerokości projekcyjnej - 400x300<br />
