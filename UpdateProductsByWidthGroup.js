@@ -3,8 +3,6 @@ const UserData = require('./UserData');
 
 // Dane logowania
 const url = UserData.url;
-const username = UserData.username;
-const password = UserData.password;
 const token = UserData.token;
 
 // Dane sklepu
@@ -134,28 +132,6 @@ const config = {
     }
 };
 
-// Funkcja do logowania, generuje i ustawia token
-async function login() {
-    try {
-        const response = await axios.post(url + '/webapi/rest/auth', {}, {
-        auth: {
-            username: username,
-            password: password
-        }
-        });
-
-        // Sprawdź status odpowiedzi
-        if (response.status === 200) {
-            token = response.data.access_token;
-            console.log('Zalogowano pomyślnie. Token:', token);
-        } else {
-            console.log('Błąd logowania:', response.statusText);
-        }
-    } catch (error) {
-        console.error('Błąd logowania:', error.message);
-    }
-}
-
 // Funkcja do pobierania wszystkich stron produktów
 async function fetchAllPages() {
     let allData = [];
@@ -242,9 +218,9 @@ async function update_products(products_data) {
 }
 
 // Funkcja do pobierania produktu, trzeba podmienić końcówkę na id poszukiwanego produktu
-async function get_product() {
+async function get_product(id) {
     try {
-        const response = await axios.get(url + '/webapi/rest/products/1535', {
+        const response = await axios.get(url + '/webapi/rest/products/' + id, {
             ...config,
         });
 
@@ -277,43 +253,12 @@ async function get_product() {
     }
 }
 
-// Aktualizowanie produktu, trzeba podmienić końcówkę na id poszukiwanego produktu
-async function update_product(product_data) {
-    console.log(product_data.attributes);
-    product_data = deleteIdAttributes(product_data);
-    product_data = changeWidth(product_data);
-    console.log(product_data.attributes);
-
-    try {
-        const response = await axios.put(url + '/webapi/rest/products/1535', {
-            ...product_data,
-            options: []
-            }, 
-            {
-            ...config,
-        });
-
-        // Sprawdź status odpowiedzi
-        if (response.status === 200) {
-            console.log('Pomyślnie zauktalizowano');
-
-        } else {
-            console.log('Błąd aktualizacji produktu:', response.statusText);
-        }
-    } catch (error) {
-        console.error('Błąd aktualizacji produktu:', error.message);
-    }
-}
-
 // Wywołaj funkcję logowania i pobierania produktów
 async function main() {
-    //LOGOWANIE
-    //await login();
-
     //WYBRANY PRODUKT
-    //     let product_data = await get_product();
+    //     let product_data = await get_product(id);
     //     if (product_data) {
-    //       await update_product(product_data);
+    //       await update_products(product_data);
     //   }
 
     //WSZYSTKIE PRODUKTY
