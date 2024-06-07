@@ -17,4 +17,4 @@ Skrypt zbiera wszystkie produkty z wykorzystaniem API oraz je aktualizuje do odp
 >
 >module.exports = UserData;
 
-Token generuje się po odkomentowaniu funkcji login, więc nie jest koniecznie wpisanie prawidłowego tokenu.
+Token generuje się po odpaleniu Login.js, kopiujemy token z wyniku i podmieniamy za wygasły token.
