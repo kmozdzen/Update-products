@@ -218,9 +218,9 @@ async function update_products(products_data) {
 }
 
 // Funkcja do pobierania produktu, trzeba podmienić końcówkę na id poszukiwanego produktu
-async function get_product() {
+async function get_product(id) {
     try {
-        const response = await axios.get(url + '/webapi/rest/products/1535', {
+        const response = await axios.get(url + '/webapi/rest/products/' + id, {
             ...config,
         });
 
@@ -253,40 +253,12 @@ async function get_product() {
     }
 }
 
-// Aktualizowanie produktu, trzeba podmienić końcówkę na id poszukiwanego produktu
-async function update_product(product_data) {
-    console.log(product_data.attributes);
-    product_data = deleteIdAttributes(product_data);
-    product_data = changeWidth(product_data);
-    console.log(product_data.attributes);
-
-    try {
-        const response = await axios.put(url + '/webapi/rest/products/1535', {
-            ...product_data,
-            options: []
-            }, 
-            {
-            ...config,
-        });
-
-        // Sprawdź status odpowiedzi
-        if (response.status === 200) {
-            console.log('Pomyślnie zauktalizowano');
-
-        } else {
-            console.log('Błąd aktualizacji produktu:', response.statusText);
-        }
-    } catch (error) {
-        console.error('Błąd aktualizacji produktu:', error.message);
-    }
-}
-
 // Wywołaj funkcję logowania i pobierania produktów
 async function main() {
     //WYBRANY PRODUKT
-    //     let product_data = await get_product();
+    //     let product_data = await get_product(id);
     //     if (product_data) {
-    //       await update_product(product_data);
+    //       await update_products(product_data);
     //   }
 
     //WSZYSTKIE PRODUKTY

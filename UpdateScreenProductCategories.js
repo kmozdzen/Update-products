@@ -284,9 +284,9 @@ async function get_products() {
 }
 
 // Funkcja do pobierania produktu, trzeba podmienić końcówkę na id poszukiwanego produktu
-async function get_product() {
+async function get_product(id) {
   try {
-      const response = await axios.get(url + '/webapi/rest/products/2193', {
+      const response = await axios.get(url + '/webapi/rest/products/' + id, {
           ...config,
       });
 
@@ -334,28 +334,6 @@ async function update_products(product_data) {
   }
 }
 
-// Aktualizowanie produktu, trzeba podmienić końcówkę na id poszukiwanego produktu
-async function update_product(product_data) {
-    try {
-        const response = await axios.put(url + '/webapi/rest/products/2193', {
-            ...product_data,
-            options: []
-            }, 
-            {
-            ...config,
-        });
-
-        // Sprawdź status odpowiedzi
-        if (response.status === 200) {
-            console.log('Pomyślnie zauktalizowano');
-
-        } else {
-            console.log('Błąd aktualizacji produktu:', response.statusText);
-        }
-    } catch (error) {
-        console.error('Błąd aktualizacji produktu:', error.message);
-    }
-}
 
 async function addd_categories_to_product(product){
   let dimension = '';
@@ -418,8 +396,12 @@ async function processProducts(products) {
 }
 
 async function main() {
-    //let product = await get_product(); 
-    let products = await get_products();
+    //POJEDYNCZY PRODUKT
+    //const product = await get_product(id); 
+    //await update_products(id);
+
+    //WSZYSTKIE
+    const products = await get_products();
     processProducts(products);
   }
 
