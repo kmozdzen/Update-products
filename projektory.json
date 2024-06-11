@@ -1,0 +1,16 @@
+[
+    {
+        "producer": "Epson",
+        "model":  "EH-TW7000",
+        "image": "https://www.ekrany.pl/userdata/public/gfx/6649/projektor_Epson-EH-TW7000.jpg",
+        "ratio": "16:9",
+        "lens:": "2,95 m - 4,77 m"
+    },
+    {
+        "producer": "Epson",
+        "name":  "EB-L520U",
+        "image": "https://www.ekrany.pl/userdata/public/gfx/6974/EB-L52U.jpg",
+        "ratio": "16:9",
+        "lens:": "2.92 - 4.73m"
+    }
+]
