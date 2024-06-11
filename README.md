@@ -16,7 +16,7 @@ Skrypt zbiera wszystkie produkty z wykorzystaniem API oraz je aktualizuje do odp
   - usuwanie niepotrzebnych atrybutów produktów,<br />
   - usuwanie dublujących się kategorii z menu głównego oraz pobocznego,<br />
   - aktualizacja menu, wyświetlanie się kategorii w postaci kolumn, gdy dana kategoria nie mieści się w kolumnie tworzona jest nowa obok i tam wskakują niemieszczące się kategorie,
-  - kalkulator obliczający odległość projektora od ekranu.br />
+  - kalkulator obliczający odległość projektora od ekranu.
 
 >[!IMPORTANT]
 >Kod wymaga dodatkowego pliku **UserData.js** z zawartością:<br />
