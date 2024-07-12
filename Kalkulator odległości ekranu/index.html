@@ -1,0 +1,173 @@
+<html>
+<head>
+    <title>Kalkulator odległości projektora</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="projector-distance-container">
+        <div class="projector-distance-left">
+        <div class="projector-distance-left-info">
+            <h2>KALKULATOR OGLEGŁOŚCI PROJEKTORA OD EKRANU</h2>
+            <p>Pozwala na obliczenie optymalnego umieszczenia projektora w zależności od wielkości ekranu or odległości siedzących osób</p>
+        </div>
+        </div>
+        <div class="projector-distance-right">
+        <div class="choose-projector-type">
+            <div class="projector-distance-items">
+            <div class="projector-distance-item">
+                <h3 class="projector-distance-label">Producent</h3>
+                <select id="projector-distance-select-producer" class="projector-distance-input"/>
+                <option value="wybierz">Wybierz...</option>
+                <option value="Epson">Epson</option>
+                <option value="Optoma">Optoma</option>
+                <option value="Nec">Nec</option>
+                <option value="JVC">JVC</option>
+                </select>
+            </div>
+            <div class="projector-distance-item">
+                <h3 class="projector-distance-label">Model</h3>
+                <select id="projector-distance-select-model" class="projector-distance-input"/>
+                <option value="wybierz">Wybierz...</option>
+                </select>
+            </div>
+            </div>
+        <div class="create-projector">
+        <button id="create-projector-button">Stwórz swój projektor</button>
+        <div class="create-projector-content">
+            <div class="create-projector-item">
+                <label id = "create-projector-ratio-label" for="create-projector-ratio-input"> Proporcje: <p/>
+                <select id="your-projector-select-ratio">
+                    <option>16:9</option>
+                    <option>16:10</option>
+                    <option>4:3</option>
+                    <option>1:1</option>
+                </select>
+            </div>
+            <div class="create-projector-throw-container">
+                <label id = "create-projector-throw-label" for="create-projector-throw-input"> Rzut: <p/>
+                    <div class="create-projector-input-container">
+                    <label for="create-projector-min-value">Min:</label>
+                    <input type="number" id="create-projector-min-value" step="0.01" value="1.09">
+                    <span> - </span>
+                    <label for="create-projector-max-value">Max:</label>
+                    <input type="number" id="create-projector-max-value" step="0.01" value="1.77">
+                    </div>
+                    <div class="create-projector-result-container">
+                    <p><span id="create-projector-result">1,09 - 1,77</span> : 1</p>
+                    </div>
+            </div>
+            <button id="create-projector-submit">Stwórz</button>
+        </div>
+        </div>
+    </div>
+            <div class="projector-view">
+            <div class="projector-image-container"> 
+                <img class = "projector-image" src="https://sklep5534602.homesklep.pl/upload/default-projector.png">
+            </div>
+            <div class="projector-content">
+                <h4 id = "projector-content-name"><h4/>  
+                <p id = "projector-content-resolution">Rozdzielczość: <p/>
+                        <p id="projector-content-ratio">Proporcje: <span id="projector-ratio">16:9</span></p>
+                        <p id="projector-content-throw">Rzut: <span id="projector-throw-min">2.00</span> - <span id="projector-throw-max">5.00</span></p>
+                </div
+                </div>
+        </div>
+        <div class = "calculate-projector">
+        <div class="calculate-projector-item">
+            <div class="projector-distance-la-in">
+            <label for="calculate-projector-size-input-id">
+                <h3 class="calculaate-projector-label">Szerokość ekranu</h3>
+            </label>
+            <input class="projector-distance-input calculate-projector-size-input" id="calculate-projector-size-input-id" />
+            </div>
+            <div class="calculate-projector-slider-container">
+            <div class="calculate-projector-slider-labels">
+                <span>0cm</span>
+                <span>500cm</span>
+            </div>
+            <div class="calculate-projector-slider">
+                <input type="range" min="0" max="500" value="0" id="width-range">
+                <div id="width-tooltip" class="tooltip">0</div>
+            </div>
+            </div>
+        </div>
+    <div class="calculate-projector-item">
+            <div class="projector-distance-la-in">
+            <label for="calculate-projector-throw-input-id">
+                <h3 class="calculate-projector-label">Odległość rzutu</h3>
+            </label>
+            <input class="projector-distance-input calculate-projector-size-input" id="calculate-projector-throw-input-id" />
+            </div>
+            <div class="calculate-projector-slider-container">
+            <div class="calculate-projector-slider-labels">
+                <span>0cm</span>
+                <span>1000cm</span>
+            </div>
+            <div class="calculate-projector-slider">
+                <input type="range" min="0" max="1000" value="0" id="throw-range">
+                <div id="throw-tooltip" class="tooltip">0</div>
+            </div>
+            </div>
+        </div>
+        <div class="projector-visual">
+            <svg class="projector-icon" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+        viewBox="0 0 512 512" xml:space="preserve">
+            <path style="fill:#3C66B1;" d="M69.99,184.619v-23.573c0-7.807,6.387-14.194,14.194-14.194h61.211
+                c7.807,0,14.194,6.387,14.194,14.194v23.573H69.99z"/>
+            <path style="fill:#C6C3CB;" d="M435.34,175.983h36.913c18.73,0,34.055,15.512,34.055,34.471v95.303
+                c0,18.959-15.324,34.471-34.055,34.471H43.57c-18.73,0-34.055-15.512-34.055-34.471v-95.303c0-18.959,15.325-34.471,34.055-34.471
+                h137.291H435.34z"/>
+            <path style="opacity:0.28;fill:#2F2D30;enable-background:new    ;" d="M471.032,175.983h-7.367v88.353
+                c0,18.959-15.324,34.471-34.055,34.471H8.294v6.95c0,18.959,15.325,34.471,34.055,34.471h428.683
+                c18.73,0,34.055-15.512,34.055-34.471v-95.303C505.086,191.495,489.762,175.983,471.032,175.983z"/>
+            <circle style="fill:#57545C;" cx="363.023" cy="219.237" r="80.886"/>
+            <path style="opacity:0.18;fill:#1D1D20;enable-background:new    ;" d="M414.636,157.18c7.123,12.047,11.227,26.092,11.227,41.101
+                c0,44.673-36.214,80.887-80.887,80.887c-19.623,0-37.611-6.992-51.618-18.616c14.078,23.809,39.997,39.786,69.66,39.786
+                c44.673,0,80.887-36.214,80.887-80.887C443.904,194.403,432.515,172.017,414.636,157.18z"/>
+            <circle style="fill:#77757E;" cx="363.023" cy="219.237" r="51.18"/>
+            <circle style="fill:#5D5D5D;" cx="363.023" cy="219.237" r="30.079"/>
+            <g>
+                <rect x="52.102" y="340.232" style="fill:#77757E;" width="77.053" height="24.333"/>
+                <rect x="371.803" y="340.232" style="fill:#77757E;" width="77.053" height="24.333"/>
+            </g>
+            <circle style="fill:#FFFFFF;" cx="373.294" cy="208.957" r="19.799"/>
+            <path d="M470.342,172.921h-36.863c-16.03-22.743-42.494-37.628-72.371-37.628c-29.925,0-56.424,14.933-72.448,37.737
+                c-0.4-0.065-0.808-0.107-1.227-0.107h-39.545c-4.199,0-7.604,3.405-7.604,7.604c0,4.199,3.405,7.604,7.604,7.604h32.237
+                c-4.824,10.913-7.51,22.975-7.51,35.654c0,48.794,39.697,88.491,88.491,88.491s88.49-39.697,88.49-88.491
+                c0-12.678-2.686-24.74-7.51-35.654h28.254c14.585,0,26.451,12.053,26.451,26.867V310.3c0,14.815-11.865,26.867-26.451,26.867
+                h-23.395h-77.053h-242.65H50.189h-8.531c-14.585,0-26.451-12.053-26.451-26.867v-19.487h187.269c4.199,0,7.604-3.405,7.604-7.604
+                c0-4.199-3.405-7.604-7.604-7.604H15.208v-9.746h187.269c4.199,0,7.604-3.405,7.604-7.604c0-4.199-3.405-7.604-7.604-7.604H15.208
+                v-9.745h187.269c4.199,0,7.604-3.405,7.604-7.604c0-4.199-3.405-7.604-7.604-7.604H15.208v-10.7
+                c0-14.815,11.866-26.867,26.451-26.867H178.95c4.199,0,7.604-3.405,7.604-7.604c0-4.199-3.405-7.604-7.604-7.604h-13.667v-7.333
+                c0-12.019-9.779-21.798-21.798-21.798H82.273c-12.019,0-21.798,9.779-21.798,21.798v7.333H41.659
+                C18.689,172.921,0,191.796,0,214.996v95.303c0,23.2,18.689,42.075,41.659,42.075h0.927v16.729c0,4.199,3.405,7.604,7.604,7.604
+                h77.053c4.199,0,7.604-3.405,7.604-7.604v-16.729h227.443v16.729c0,4.199,3.404,7.604,7.604,7.604h77.053
+                c4.2,0,7.604-3.405,7.604-7.604v-16.729h15.791c22.97,0,41.659-18.875,41.659-42.075v-95.303
+                C512,191.796,493.313,172.921,470.342,172.921z M361.107,297.066c-40.408,0-73.283-32.874-73.283-73.283
+                s32.874-73.283,73.283-73.283c40.407,0,73.282,32.874,73.282,73.283S401.515,297.066,361.107,297.066z M75.683,165.588
+                c0-3.634,2.956-6.59,6.59-6.59h61.211c3.634,0,6.59,2.956,6.59,6.59v7.333H75.683V165.588z M119.639,361.499H57.793v-9.125h61.846
+                V361.499z M439.343,361.499h-61.846v-9.125h61.846V361.499z"/>
+            <path d="M361.107,164.995c-32.417,0-58.789,26.373-58.789,58.789s26.373,58.789,58.789,58.789s58.788-26.373,58.788-58.789
+                S393.523,164.995,361.107,164.995z M361.107,267.364c-24.031,0-43.581-19.55-43.581-43.581s19.55-43.581,43.581-43.581
+                c24.031,0,43.58,19.55,43.58,43.581S385.139,267.364,361.107,267.364z"/>
+            <path d="M361.107,186.099c-20.779,0-37.684,16.905-37.684,37.683s16.905,37.683,37.684,37.683c20.778,0,37.683-16.905,37.683-37.683
+                S381.886,186.099,361.107,186.099z M361.107,246.259c-12.393,0-22.476-10.083-22.476-22.475s10.083-22.475,22.476-22.475
+                c12.393,0,22.475,10.083,22.475,22.475S373.5,246.259,361.107,246.259z"/>
+            </svg>
+            <div class="line-img-container">
+            <img id="line-img" src="https://sklep5534602.homesklep.pl/upload/linia.png" alt="" height="50" />
+            <p id="line-value">0</p>
+            </div>
+            <div class="projector-screen-container">
+            <div class="projector-screen-width">
+            <p id="img-width">0</p>
+            <img id="projector-screen-img" src="https://sklep5534602.homesklep.pl/upload/projector-screen4.png" alt="" width="200" height="200" />
+            </div>
+            <p id="img-height">0</p>
+            </div>
+        </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
