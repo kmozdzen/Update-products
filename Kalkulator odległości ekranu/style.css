@@ -1510,7 +1510,7 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
 {
   display: flex;
   justify-content: center;
-  text-aling: center;
+  text-align: center;
 }
 
 .calculate-projector-size-input
@@ -1519,12 +1519,11 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
   margin: 10px;
 }
 
-.projector-icon
+.calculate-projector .projector-visual .projector-icon
 {
   width: 10%;
   margin: auto;
-  margin-right: 0px;
-  margin-bottom: 0px;
+  margin-left: 50%;
 }
 
 .projector-visual
@@ -1537,7 +1536,7 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: auto;
+  margin: auto 0;
   position: relative; /* Dodano pozycjonowanie relatywne */
 }
 
@@ -1565,21 +1564,16 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
 }
 
 .line-img-container {
-  position: relative;
-  width: 100%; /* Zapewnia, że kontener ma pełną szerokość */
-  overflow: hidden; /* Zapobiega wychodzeniu zawartości poza kontener */
-}
-
-#line-img {
-  position: absolute;
-  bottom: 0;
-  left: 0; /* Ustawienie na lewą krawędź kontenera */
-  right: 0; /* Ustawienie na prawą krawędź kontenera */
-  max-width: 100%; /* Zapobiega przekroczeniu szerokości kontenera */
-  height: auto; /* Zapewnia proporcjonalność obrazka */
+  flex-grow: 1;
+  background-image: url('https://sklep5534602.homesklep.pl/upload/linia.png'); /* Path to your line image */
+  background-repeat: repeat-x;
+  background-position: center;
+  background-size: contain;
 }
 
 #line-value {
+  display: none;
+
   position: absolute;
   bottom: -10px; /* Ustawienie wartości pod linią */
   left: 50%; /* Wyśrodkowanie wartości */

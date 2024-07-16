@@ -1,36 +1,36 @@
  //SKRYPT DO OBLICZANIA ODLEGLOSCI OD EKRANU
  document.addEventListener('DOMContentLoaded', function() {
  
-    const select_producer = document.querySelector('#projector-distance-select-producer');
-    const select_model = document.querySelector('#projector-distance-select-model');
-    const projector_view = document.querySelector('.projector-view');
-    const projector_name = document.querySelector('#projector-content-name');
-    const projector_resolution = document.querySelector('#projector-content-resolution');
-    const projector_ratio = document.querySelector('#projector-content-ratio');
-    const projector_throw = document.querySelector('#projector-content-throw');
-    const projector_image = document.querySelector('.projector-image');
-    const calculate_projector = document.querySelector('.calculate-projector');
-    const create_projector_button = document.getElementById('create-projector-button');
-    const create_projector_content = document.querySelector('.create-projector-content');
-    const create_projector_submit = document.getElementById('create-projector-submit');
-    const your_projector_view = document.querySelector('.your-projector-view');
-    const your_projector_content_ratio = document.getElementById('your-projector-content-ratio');
-    const your_projector_content_throw = document.getElementById('your-projector-content-throw');
-    const your_projector_select_ratio = document.getElementById('your-projector-select-ratio');
-    const a_projector_ratio = document.querySelector("#projector-ratio");
-    const a_projector_throw_min = document.querySelector("#projector-throw-min");
-    const a_projector_throw_max = document.querySelector("#projector-throw-max");
-    const width_slider = document.getElementById('width-range');
-    const width_tooltip = document.getElementById('width-tooltip');
-    const screen_width_input = document.getElementById("calculate-projector-size-input-id");
-    const throw_slider = document.getElementById('throw-range');
-    const throw_tooltip = document.getElementById('throw-tooltip');
-    const screen_throw_input = document.getElementById("calculate-projector-throw-input-id");
-    const projector_screen_img = document.getElementById('projector-screen-img');
-    const img_height = document.getElementById('img-height');
-    const img_width = document.getElementById('img-width');
-    const line_value = document.getElementById('line-value');
-    
+    const select_producer = document.querySelector('#projector-distance-select-producer'); // wybor producenta
+    const select_model = document.querySelector('#projector-distance-select-model'); // wybor modelu
+    const projector_view = document.querySelector('.projector-view'); // widok projektora z danymi
+    const projector_name = document.querySelector('#projector-content-name'); // nazwa projektora
+    const projector_resolution = document.querySelector('#projector-content-resolution'); // rozdzielczosc ekranu
+    const projector_image = document.querySelector('.projector-image'); // obrazek projektora przy danych
+    const calculate_projector = document.querySelector('.calculate-projector'); // kontener z paskami wyboru szerokości i odległości oraz wizualizacja graficzna
+    const create_projector_button = document.getElementById('create-projector-button'); // przycisk udostępniający dane do stworzenia projektora 
+    const create_projector_content = document.querySelector('.create-projector-content'); // dane do stworzenia projektora
+    const create_projector_submit = document.getElementById('create-projector-submit'); // przycisk do tworzenia wlasnego projektora
+    const your_projector_select_ratio = document.getElementById('your-projector-select-ratio'); // wybór proporcji dla wlasnego projektora
+    const a_projector_ratio = document.querySelector("#projector-ratio"); // proporcje projektora
+    const a_projector_throw_min = document.querySelector("#projector-throw-min"); // minimalny rzut projektora
+    const a_projector_throw_max = document.querySelector("#projector-throw-max"); // maksymalny rzut projektora
+    const width_slider = document.getElementById('width-range'); // przesuwalny pasek wyboru szerokości ekranu 
+    const width_tooltip = document.getElementById('width-tooltip'); // wyswietlana wartosc przy pasku szerokosci
+    const screen_width_input = document.getElementById("calculate-projector-size-input-id"); // pole do wpisywania szerokosci
+    const throw_slider = document.getElementById('throw-range'); // przesuwalny pasek wyboru odleglosci projektora od ekranu
+    const throw_tooltip = document.getElementById('throw-tooltip'); // wyswietlana wartosc przy pasku odleglosci
+    const screen_throw_input = document.getElementById("calculate-projector-throw-input-id"); // pole do wpisywania odleglosci
+    const projector_screen_img = document.getElementById('projector-screen-img'); // obrazek ekranu
+    const img_height = document.getElementById('img-height'); // wartosc wysokosci przy obrazku ekranu
+    const img_width = document.getElementById('img-width'); // wartosc szerokosci przy obrazku ekranu
+    const line_value = document.getElementById('line-value'); // wartosc pod linia
+    const projector_icon = document.querySelector('.projector-icon'); // ikonka projektora przy wizualizacji
+    const minValueInput = document.getElementById('create-projector-min-value');
+    const maxValueInput = document.getElementById('create-projector-max-value');
+    const proportionResult = document.getElementById('create-projector-result');
+
+    // dane dla istniejacych projektorow
    const options = {
       "Epson": {
         "EB-L520U": {
@@ -52,35 +52,37 @@
       }
     };
     
+    // pokazywanie i chowanie się kontentu dla tworzenia własnego projektora
     create_projector_button.addEventListener('click', () => {
       if(create_projector_content.style.display == 'none')
         create_projector_content.style.display = 'block';
       else
         create_projector_content.style.display = 'none';
     });
-    
-    const minValueInput = document.getElementById('create-projector-min-value');
-    const maxValueInput = document.getElementById('create-projector-max-value');
-    const proportionResult = document.getElementById('create-projector-result');
   
+    // zbiera minimalny i maksymalny rzut i zapisuje je w 1 zdaniu:  Min: 1,09 Max: 1,77 --> 1,09 - 1,77
     function updateProportion() {
       const minValue = parseFloat(minValueInput.value).toFixed(2).replace('.', ',');
       const maxValue = parseFloat(maxValueInput.value).toFixed(2).replace('.', ',');
       proportionResult.textContent = `${minValue} - ${maxValue}`;
     }
     
+    // tworzenie wlasnego projektora
     create_projector_submit.addEventListener('click', () => {
-  
+      // pokazanie sie projektora, danych oraz paskow 
       projector_view.style.display = "flex";
       calculate_projector.style.display = "flex";
-      projector_resolution.style.display = "none";
-      projector_name.style.display = "none";
+      projector_resolution.style.display = "none"; // ukrycie rozdzelczosci
+      projector_name.style.display = "none"; // ukrycie nazwy projektora
       
+      // wyzerowanie selectow gotowych projektorow
       select_model.value = "wybierz";
       select_producer.value = "wybierz";
       
+      // ustawienie podstawowego zdjecia projektora 
       projector_image.src = "https://sklep5534602.homesklep.pl/upload/default-projector.png";
       
+      // wyzerowanie paskow
       const minValue = parseFloat(minValueInput.value);
       const maxValue = parseFloat(maxValueInput.value);
       
@@ -108,13 +110,20 @@
       select_model.innerHTML = "";
       select_model.innerHTML = '<option value="wybierz">Wybierz...</option>';
       
+      if(select_producer.value == 'wybierz'){
+        projector_view.style.display = "none";
+        calculate_projector.style.display =  "none";
+      }
+
+      if(select_model.value == 'wybierz'){
+        projector_view.style.display = "none";
+        calculate_projector.style.display =  "none";
+      }
+
       if (producer && options[producer]) {
         Object.keys(options[producer]).forEach(model => {
           addOption(model);
         });
-        if(select_producer.value == 'wybierz'){
-          projector_view.style.display = "none";
-        }
       }
     });
     
@@ -126,6 +135,7 @@
       }
       else{
         projector_view.style.display = "none";
+        calculate_projector.style.display =  "none";
       }
     });
   
@@ -152,10 +162,10 @@
     }
     
   //SZEROKOŚĆ I RZUT
-    const baseScreenWidth = 200;
+    const baseScreenWidth = 100;
     
     const changeScreenImgSize = () => {
-      const newValue = String(baseScreenWidth +  (parseInt(width_tooltip.textContent) / 3));
+      const newValue = String(baseScreenWidth +  (parseInt(width_tooltip.textContent) / 4));
       projector_screen_img.style.width = newValue + 'px';
     }
     
@@ -195,10 +205,11 @@
     const update_img_values = () => {
       img_width.innerHTML = width_tooltip.textContent;
   
-      console.log(projector_ratio.value);
-      const ratioHeight = getRatioHeight(projector_ratio.value);
-      const ratioWidth = getRatioWidth(projector_ratio.value);
+      const ratioHeight = getRatioHeight(a_projector_ratio.textContent);
+      const ratioWidth = getRatioWidth(a_projector_ratio.textContent);
   
+      console.log('wysokosc: ' + ratioHeight);
+      console.log('szerokosc: ' + ratioWidth);
       const width = parseInt(width_tooltip.textContent);
       const imgHeightValue = parseInt(width * ratioHeight / ratioWidth); 
       img_height.innerHTML = imgHeightValue;
@@ -230,10 +241,6 @@
     }
     
   const updateRange = (slider, tooltip, value) => {
-    console.log(a_projector_ratio.textContent);
-    console.log(a_projector_throw_min.textContent);
-    console.log(a_projector_throw_max.textContent);
-    
     const min = slider.min;
     const max = slider.max;
     const percentage = ((value - min) / (max - min)) * 100;
@@ -253,6 +260,10 @@
       
       const max_lens_int = Math.floor((parseInt(value) / min_throw_int) * max_throw_int);
       tooltip.textContent = tooltip.textContent + " - " + max_lens_int;
+      line_value.innerHTML = value;
+
+      projector_icon_new_value = (50 - (value/20)) + '%'; 
+      projector_icon.style.marginLeft = projector_icon_new_value;
       update_img_values();
     }
   };
