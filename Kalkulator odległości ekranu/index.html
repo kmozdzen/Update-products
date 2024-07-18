@@ -8,7 +8,7 @@
         <div class="projector-distance-left">
         <div class="projector-distance-left-info">
             <h2>KALKULATOR OGLEGŁOŚCI PROJEKTORA OD EKRANU</h2>
-            <p>Pozwala na obliczenie optymalnego umieszczenia projektora w zależności od wielkości ekranu or odległości siedzących osób</p>
+            <p>Pozwala na obliczenie optymalnego umieszczenia projektora w zależności od wielkości ekranu</p>
         </div>
         </div>
         <div class="projector-distance-right">
@@ -32,11 +32,11 @@
             </div>
             </div>
         <div class="create-projector">
-        <button id="create-projector-button">Stwórz swój projektor</button>
-        <div class="create-projector-content">
+        <button class="projector-distance-button" id="create-projector-button">Stwórz swój projektor</button>
+        <div class="create-projector-content" style="display: none;">
             <div class="create-projector-item">
                 <label id = "create-projector-ratio-label" for="create-projector-ratio-input"> Proporcje: <p/>
-                <select id="your-projector-select-ratio">
+                <select class="projector-distance-input" id="your-projector-select-ratio">
                     <option>16:9</option>
                     <option>16:10</option>
                     <option>4:3</option>
@@ -47,16 +47,15 @@
                 <label id = "create-projector-throw-label" for="create-projector-throw-input"> Rzut: <p/>
                     <div class="create-projector-input-container">
                     <label for="create-projector-min-value">Min:</label>
-                    <input type="number" id="create-projector-min-value" step="0.01" value="1.09">
-                    <span> - </span>
+                    <input type="number" class="projector-distance-input" id="create-projector-min-value" step="0.01" value="1.09" min="0.00" max="10.00">
                     <label for="create-projector-max-value">Max:</label>
-                    <input type="number" id="create-projector-max-value" step="0.01" value="1.77">
+                    <input type="number" class="projector-distance-input" id="create-projector-max-value" step="0.01" value="1.77" min="0.00" max="10.00">
                     </div>
                     <div class="create-projector-result-container">
                     <p><span id="create-projector-result">1,09 - 1,77</span> : 1</p>
                     </div>
             </div>
-            <button id="create-projector-submit">Stwórz</button>
+            <button class="projector-distance-button" id="create-projector-submit">Stwórz</button>
         </div>
         </div>
     </div>
@@ -68,7 +67,7 @@
                 <h4 id = "projector-content-name"><h4/>  
                 <p id = "projector-content-resolution">Rozdzielczość: <p/>
                         <p id="projector-content-ratio">Proporcje: <span id="projector-ratio">16:9</span></p>
-                        <p id="projector-content-throw">Rzut: <span id="projector-throw-min">2.00</span> - <span id="projector-throw-max">5.00</span></p>
+                        <p id="projector-content-throw">Rzut: <span id="projector-throw-min">2.00</span> - <span id="projector-throw-max">5.00</span> : 1</p>
                 </div
                 </div>
         </div>

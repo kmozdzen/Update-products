@@ -30,6 +30,12 @@
     const maxValueInput = document.getElementById('create-projector-max-value');
     const proportionResult = document.getElementById('create-projector-result');
 
+    const baseScreenWidth = 100; // podstawowa szerokosc obrazka ekranu
+    const maxThrowInputValue = 10; // maksymalna wartosc wybieranego rzutu
+    const minThrowInputValue = 0; // minimalna wartosc wybieranego rzutu
+    const maxWidthRange = 500; // maksymalna wartość szerokości ekranu na pasku
+    const maxDistanceRange = 1000; // maksymalna odleglosc projektora od ekranu na pasku
+
     // dane dla istniejacych projektorow
    const options = {
       "Epson": {
@@ -39,6 +45,13 @@
           ratio: '16:9',
           lens_min: '2.92',
           lens_max: '4.73'
+        },
+        "EH-TW7100": {
+          image: 'https://www.ekrany.pl/userdata/public/gfx/6637/Epson-EH-TW7100-front.jpg',
+          resolution: '4096x2160 (4K)',
+          ratio: '16:9',
+          lens_min: '2.95',
+          lens_max: '4.77'
         }
       },
       "Optoma": {
@@ -48,6 +61,15 @@
           ratio: '16:9',
           lens_min: '1.50',
           lens_max: '1.66'
+        }
+      },
+      "Nec": {
+        "ME403U": {
+          image: 'https://www.ekrany.pl/userdata/public/gfx/6669/projektor_Nec-ME403U.jpg',
+          resolution: '1920x1200 (WUXGA)',
+          ratio: '16:10',
+          lens_min: '1.20',
+          lens_max: '2.00'
         }
       }
     };
@@ -61,50 +83,99 @@
     });
   
     // zbiera minimalny i maksymalny rzut i zapisuje je w 1 zdaniu:  Min: 1,09 Max: 1,77 --> 1,09 - 1,77
-    function updateProportion() {
+    const updateProportion = () => {
+      if(minValueInput.value > maxValueInput.value){
+        maxValueInput.value = minValueInput.value;
+      }
+      
       const minValue = parseFloat(minValueInput.value).toFixed(2).replace('.', ',');
       const maxValue = parseFloat(maxValueInput.value).toFixed(2).replace('.', ',');
-      proportionResult.textContent = `${minValue} - ${maxValue}`;
+      if(minValueInput.value && maxValueInput.value)
+        proportionResult.textContent = `${minValue} - ${maxValue}`;
+      else
+        proportionResult.textContent = "";
     }
+
+    // pozwala jedynie na prowadzenie cyfr i kropek dla min throw
+    minValueInput.addEventListener('keypress', (e) => {
+      if (!/^\d*\.?\d*$/.test(e.key)) {
+        e.preventDefault();
+      }
+    })
     
+    // pozwala jedynie na prowadzenie cyfr i kropek dla max throw
+    maxValueInput.addEventListener('keypress', (e) => {
+      if (!/^\d*\.?\d*$/.test(e.key)) {
+        e.preventDefault();
+      }
+    })
+
+    // ogranicza zakres wpisywanych liczb do inputa min throw
+    minValueInput.addEventListener('input', () => {
+    
+    if(minValueInput.value > maxThrowInputValue)
+      minValueInput.value = maxThrowInputValue;
+    else if(minValueInput < minThrowInputValue)
+      minValueInput.value = minThrowInputValue;
+
+    if(minValueInput.value > maxValueInput.value){
+      maxValueInput.value = minValueInput.value;
+    }
+    });
+
+    // ogranicza zakres wpisywanych liczb do inputa max throw
+    maxValueInput.addEventListener('input', () => {
+      if(minValueInput.value > maxValueInput.value){
+        maxValueInput.value = minValueInput.value;
+      }
+      
+      if(maxValueInput.value > maxThrowInputValue)
+        maxValueInput.value = maxThrowInputValue;
+      else if(maxValueInput < minThrowInputValue)
+        maxValueInput.value = minThrowInputValue;
+    });
+
     // tworzenie wlasnego projektora
     create_projector_submit.addEventListener('click', () => {
-      // pokazanie sie projektora, danych oraz paskow 
-      projector_view.style.display = "flex";
-      calculate_projector.style.display = "flex";
-      projector_resolution.style.display = "none"; // ukrycie rozdzelczosci
-      projector_name.style.display = "none"; // ukrycie nazwy projektora
+      if(minValueInput.value && maxValueInput.value){
+        // pokazanie sie projektora, danych oraz paskow 
+        projector_view.style.display = "flex";
+        calculate_projector.style.display = "flex";
+        projector_resolution.style.display = "none"; // ukrycie rozdzelczosci
+        projector_name.style.display = "none"; // ukrycie nazwy projektora
+        
+        // wyzerowanie selectow gotowych projektorow
+        select_model.value = "wybierz";
+        select_producer.value = "wybierz";
+        
+        // ustawienie podstawowego zdjecia projektora 
+        projector_image.src = "https://sklep5534602.homesklep.pl/upload/default-projector.png";
+        
+        // wyzerowanie paskow
+        const minValue = parseFloat(minValueInput.value);
+        const maxValue = parseFloat(maxValueInput.value);
       
-      // wyzerowanie selectow gotowych projektorow
-      select_model.value = "wybierz";
-      select_producer.value = "wybierz";
-      
-      // ustawienie podstawowego zdjecia projektora 
-      projector_image.src = "https://sklep5534602.homesklep.pl/upload/default-projector.png";
-      
-      // wyzerowanie paskow
-      const minValue = parseFloat(minValueInput.value);
-      const maxValue = parseFloat(maxValueInput.value);
-      
-      a_projector_ratio.textContent = your_projector_select_ratio.value;
-      a_projector_throw_min.textContent = minValue;
-      a_projector_throw_max.textContent = maxValue;
-      
-      screen_width_input.value = '0';
-      screen_throw_input.value = '0';
-      
-      updateRange(throw_slider, throw_tooltip, 0);
-      updateRange(width_slider, width_tooltip, 0);
-      
-      width_slider.value = 0;
-      throw_slider.value = 0;
+        a_projector_ratio.textContent = your_projector_select_ratio.value;
+        a_projector_throw_min.textContent = minValue;
+        a_projector_throw_max.textContent = maxValue;
+        
+        screen_width_input.value = '0';
+        screen_throw_input.value = '0';
+        
+        updateRange(throw_slider, throw_tooltip, 0);
+        updateRange(width_slider, width_tooltip, 0);
+        
+        width_slider.value = 0;
+        throw_slider.value = 0;
+      }
     });
   
     minValueInput.addEventListener('input', updateProportion);
     maxValueInput.addEventListener('input', updateProportion);
     
+    // zmiany przy wyborze producenta
     select_producer.addEventListener("change", () => {
-      const producer = select_producer.value;
+      const producer = select_producer.value; // ustawia producenta na zmiennej
       select_model.disabled = !producer;
       projector_view.style.display = "none";
       select_model.innerHTML = "";
@@ -127,6 +198,7 @@
       }
     });
     
+    // zmiany przy wyborze modelu, pokazuje lub ukrywa dane
     select_model.addEventListener("change", () => {
       if(select_model.value != 'wybierz'){
         getProjectorInfo();
@@ -139,6 +211,7 @@
       }
     });
   
+    // dodaje opcje
     const addOption = (model) => {
       const option = document.createElement("option");
       option.textContent = model;
@@ -146,6 +219,7 @@
       select_model.appendChild(option);
     }
     
+    // ustawia dane dla projektora w zaleznosci od wybranego producenta i modelu
     const getProjectorInfo = () => {
       const producer = select_producer.value;
       const model = select_model.value;
@@ -162,13 +236,14 @@
     }
     
   //SZEROKOŚĆ I RZUT
-    const baseScreenWidth = 100;
-    
+
+    // zmiana wielkosci obrazka ekranu w zaleznosci od wybranej szerokosci na pasku
     const changeScreenImgSize = () => {
       const newValue = String(baseScreenWidth +  (parseInt(width_tooltip.textContent) / 4));
       projector_screen_img.style.width = newValue + 'px';
     }
     
+    // wyciaga proporcje szerokosci: 16:9 -> 16
     const getRatioWidth = (ratio) => {
       let pattern = /(\d+):(\d+)/;
       
@@ -186,6 +261,7 @@
       }
     }
     
+    // wyciaga proporcje dlugosci: 16:9 -> 9
     const getRatioHeight = (ratio) => {
       let pattern = /(\d+):(\d+)/;
       
@@ -201,147 +277,182 @@
         }
       }
     }
-    
+
+    // aktualizuje wartosci szerokosci i dlugosci na obrazku ekranu 
     const update_img_values = () => {
       img_width.innerHTML = width_tooltip.textContent;
   
       const ratioHeight = getRatioHeight(a_projector_ratio.textContent);
       const ratioWidth = getRatioWidth(a_projector_ratio.textContent);
   
-      console.log('wysokosc: ' + ratioHeight);
-      console.log('szerokosc: ' + ratioWidth);
       const width = parseInt(width_tooltip.textContent);
       const imgHeightValue = parseInt(width * ratioHeight / ratioWidth); 
       img_height.innerHTML = imgHeightValue;
       changeScreenImgSize();
     }
     
-     const get_min_throw_info = () => {
-      const producer = select_producer.value;
-      const model = select_model.value;
+    // aktualizacja paskow i inputow
+    const updateRange = (slider, tooltip, value) => {
+      const min = slider.min;
+      const max = slider.max;
+      const percentage = ((value - min) / (max - min)) * 100;
+      tooltip.textContent = value;
+      tooltip.style.left = `calc(${percentage}% + (${8 - percentage * 0.15}px))`; // pozycja wskaznika na pasku
       
-   if (producer && model && options[producer] && options[producer][model] && producer !== "wybierz" && model !== "wybierz") {
-      const projector = options[producer][model];
-      return projector.lens_min;
-    }
-  
-       return "";
-    }
-     
-    const get_max_throw_info = () => {
-      const producer = select_producer.value;
-      const model = select_model.value;
-      
-   if (producer && model && options[producer] && options[producer][model] && producer !== "wybierz" && model !== "wybierz") {
-      const projector = options[producer][model];
-      return projector.lens_max;
-    }
-  
-       return "";
-    }
+      if(tooltip.id == "throw-tooltip"){
+          const min_throw = a_projector_throw_min.textContent;
+          let min_throw_int = 0;
+          if(min_throw != "")
+            min_throw_int = parseFloat(min_throw);
     
-  const updateRange = (slider, tooltip, value) => {
+          const max_throw = a_projector_throw_max.textContent
+          let max_throw_int = 0;
+          if(max_throw != "")
+            max_throw_int = parseFloat(max_throw);
+        
+        const max_lens_int = Math.floor((parseInt(value) / min_throw_int) * max_throw_int);
+        tooltip.textContent = tooltip.textContent + " - " + max_lens_int;
+        line_value.innerHTML = value;
+
+        //odleglosc projektora od ekranu na wizualizacji
+        const projector_icon_new_value = (50 - (value / 20)) + '%'; 
+        projector_icon.style.marginLeft = projector_icon_new_value;
+        update_img_values();
+      }
+    };
+
+    // aktualizacja napisu w szerokosci
+    const updateWidthTooltip = (slider, tooltip, input) => {
+      const value = slider.value;
+      updateRange(slider, tooltip, value);
+        
+      const throw_value = Math.floor(Math.min(maxDistanceRange, parseInt(value) * parseFloat(a_projector_throw_min.textContent)));
+      updateRange(throw_slider, throw_tooltip, throw_value);
+    
+      input.value = value;
+      screen_throw_input.value = throw_value;
+      throw_slider.value = throw_value;
+    };
+
+    // aktualizacja napisu w rzucie
+    const updateThrowTooltip = (slider, tooltip, input) => {
+      const value = slider.value;
+      updateRange(slider, tooltip, value);
+      
+      const width_value = Math.floor(Math.min(maxWidthRange, parseInt(value) / parseFloat(a_projector_throw_min.textContent)));
+      updateRange(width_slider, width_tooltip, width_value);
+    
+      input.value = value;
+      screen_width_input.value = width_value;
+      width_slider.value = width_value;
+    };
+
+    width_slider.addEventListener('input', (e) => {
+      const value = parseInt(width_slider.value * parseFloat(a_projector_throw_max.textContent));
+      if (value < maxDistanceRange) {
+        updateWidthTooltip(width_slider, width_tooltip, screen_width_input);
+      }
+    });
+
+    throw_slider.addEventListener('input', (e) => {
+      if (width_slider.value != maxWidthRange) {
+        updateThrowTooltip(throw_slider, throw_tooltip, screen_throw_input);
+      }
+    });
+
+    width_slider.addEventListener('mousedown', (e) => {
+      const value = parseInt(width_slider.value * parseFloat(a_projector_throw_max.textContent));
+      if (value.value >= maxDistanceRange) {
+        e.preventDefault();
+      }
+    });
+
+    throw_slider.addEventListener('mousedown', (e) => {
+      if (width_slider.value == maxWidthRange) {
+        e.preventDefault();
+      }
+    });
+    
+    // wpisywanie szerokosci ekranu
+    screen_width_input.addEventListener('input', () => {
+      const val = parseInt(screen_width_input.value);
+      
+      // ograniczenie zakresu od 0 - 500
+      if (val > 500) screen_width_input.value = "500";
+      else if (val < 0) screen_width_input.value = "0";
+    
+      const value = screen_width_input.value;
+      updateRange(width_slider, width_tooltip, value);
+      width_slider.value = value;
+    
+      const min_throw = a_projector_throw_min.textContent;
+      let min_throw_int = 0;
+      if(min_throw != "")
+        min_throw_int = parseFloat(min_throw);
+      
+      const throw_value = Math.floor(Math.min(1000, parseFloat(value) * min_throw_int));
+      updateRange(throw_slider, throw_tooltip, throw_value);
+      screen_throw_input.value = throw_value;
+      throw_slider.value = throw_value;
+    });
+    
+    // wpisywanie rzutu
+    screen_throw_input.addEventListener('input', () => {
+      const val = parseInt(screen_throw_input.value);
+      
+      //ograniczenie zakresu wpisywania 0 - 1000
+      if (val > 1000) screen_throw_input.value = "1000";
+      else if (val < 0) screen_throw_input.value = "0";
+    
+      const value = screen_throw_input.value;
+      updateRange(throw_slider, throw_tooltip, value);
+      throw_slider.value = value;
+    
+      const min_throw = getMinThrow();
+      let min_throw_int = 0;
+      if(min_throw != "")
+        min_throw_int = parseFloat(min_throw);
+      
+      const width_value = Math.floor(Math.min(500, parseFloat(value) / min_throw_int));
+      updateRange(width_slider, width_tooltip, width_value);
+      screen_width_input.value = width_value;
+      width_slider.value = width_value;
+    });  
+
+    const throwRange = document.getElementById('throw-range');
+const throwTooltip = document.getElementById('throw-tooltip');
+const track = document.createElement('div');
+track.className = 'track';
+throwRange.parentNode.insertBefore(track, throwRange);
+
+const updateTrack = (slider) => {
     const min = slider.min;
     const max = slider.max;
+    const value = slider.value;
     const percentage = ((value - min) / (max - min)) * 100;
-    tooltip.textContent = value;
-    tooltip.style.left = `calc(${percentage}% + (${8 - percentage * 0.15}px))`;
-    
-     if(tooltip.id == "throw-tooltip"){
-        const min_throw = a_projector_throw_min.textContent;
-        let min_throw_int = 0;
-        if(min_throw != "")
-          min_throw_int = parseFloat(min_throw);
-  
-        const max_throw = a_projector_throw_max.textContent
-        let max_throw_int = 0;
-        if(max_throw != "")
-          max_throw_int = parseFloat(max_throw);
-      
-      const max_lens_int = Math.floor((parseInt(value) / min_throw_int) * max_throw_int);
-      tooltip.textContent = tooltip.textContent + " - " + max_lens_int;
-      line_value.innerHTML = value;
 
-      projector_icon_new_value = (50 - (value/20)) + '%'; 
-      projector_icon.style.marginLeft = projector_icon_new_value;
-      update_img_values();
-    }
-  };
-  
-  const updateWidthTooltip = (slider, tooltip, input) => {
-    const value = slider.value;
-    updateRange(slider, tooltip, value);
-  
-    const throw_value = Math.floor(Math.min(1000, parseInt(value) * parseFloat(a_projector_throw_min.textContent)));
-    updateRange(throw_slider, throw_tooltip, throw_value);
-  
-    input.value = value;
-    screen_throw_input.value = throw_value;
-    throw_slider.value = throw_value;
-  };
-  
-  const updateThrowTooltip = (slider, tooltip, input) => {
-    const value = slider.value;
-    updateRange(slider, tooltip, value);
-  
-    const width_value = Math.floor(Math.min(500, parseInt(value) / parseFloat(a_projector_throw_min.textContent)));
-    updateRange(width_slider, width_tooltip, width_value);
-  
-    input.value = value;
-    screen_width_input.value = width_value;
-    width_slider.value = width_value;
-  };
-  
-  width_slider.addEventListener('input', () => {
-    updateWidthTooltip(width_slider, width_tooltip, screen_width_input);
-  });
-  
-  screen_width_input.addEventListener('input', () => {
-    const val = parseInt(screen_width_input.value);
+    // Obliczanie pozycji wskaźnika w pikselach
+    const sliderWidth = slider.offsetWidth;
+    const thumbPosition = (percentage / 100) * sliderWidth;
+    const blackStartPosition = thumbPosition;
+    const blackEndPosition = blackStartPosition + 100;
+
+    // Ustawienie gradientu dla paska
+    track.style.background = `linear-gradient(to right, #d3d3d3  0%, #d3d3d3  ${blackStartPosition}px, black ${blackStartPosition}px ${blackEndPosition}px, #d3d3d3  ${blackEndPosition}px 100%)`;
+
+    //throwTooltip.textContent = value;
+
+    const thumbWidth = 25;
+    const thumbOffset = (thumbWidth / 2) * (percentage / 100);
+    throwTooltip.style.left = `calc(${percentage}% + ${thumbOffset}px)`;
+};
+
+throwRange.addEventListener('input', () => {
+    updateTrack(throwRange);
+});
+
+// Initialize track on page load
+updateTrack(throwRange);
+});
     
-    if (val > 500) screen_width_input.value = "500";
-    else if (val < 0) screen_width_input.value = "0";
-  
-    const value = screen_width_input.value;
-    updateRange(width_slider, width_tooltip, value);
-    width_slider.value = value;
-  
-    const min_throw = a_projector_throw_min.textContent;
-    let min_throw_int = 0;
-    if(min_throw != "")
-      min_throw_int = parseFloat(min_throw);
     
-    const throw_value = Math.floor(Math.min(1000, parseFloat(value) * min_throw_int));
-    updateRange(throw_slider, throw_tooltip, throw_value);
-    screen_throw_input.value = throw_value;
-    throw_slider.value = throw_value;
-  });
-  
-  throw_slider.addEventListener('input', () => {
-    updateThrowTooltip(throw_slider, throw_tooltip, screen_throw_input);
-  });
-  
-  screen_throw_input.addEventListener('input', () => {
-    const val = parseInt(screen_throw_input.value);
-    
-    if (val > 1000) screen_throw_input.value = "1000";
-    else if (val < 0) screen_throw_input.value = "0";
-  
-    const value = screen_throw_input.value;
-    updateRange(throw_slider, throw_tooltip, value);
-    throw_slider.value = value;
-  
-    const min_throw = getMinThrow();
-    let min_throw_int = 0;
-    if(min_throw != "")
-      min_throw_int = parseFloat(min_throw);
-    
-    const width_value = Math.floor(Math.min(500, parseFloat(value) / min_throw_int));
-    updateRange(width_slider, width_tooltip, width_value);
-    screen_width_input.value = width_value;
-    width_slider.value = width_value;
-  });
-    
-  });
-  
-  

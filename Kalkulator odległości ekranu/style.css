@@ -1379,132 +1379,96 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
 {
   width: 100%;
 }
-@media (max-width: 480px){
-.projector-distance-container
-    {
-      flex-direction: column
-    }
-
-  .projector-distance-items
-    {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-    }
-  
-    .projector-distance-left
-    {
-      width: 100%;
-    }
-
-    .projector-distance-left-info
-    {
-      margin: auto;
-    }
-}
-@media (max-width: 766px) and (min-width: 481px){
-   .projector-distance-container
-    {
-      flex-direction: column
-    }
-
-  .projector-distance-items
-    {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-    }
-  
-    .projector-distance-left
-    {
-      width: 100%;
-    }
-
-    .projector-distance-left-info
-    {
-      margin: auto;
-    }
-}
-
-
-@media (max-width: 979px) and (min-width: 767px){
-  .projector-distance-container
-  {
-    flex-direction: column
-  }
-  
-  .projector-distance-left
-  {
-    width: 100%;
-  }
-  
-  .projector-distance-items
-  {
-    width: 100%;
-  }
-  
-  .projector-distance-left-info
-  {
-    margin: auto;
-  }
-}
 
 .calculate-projector-slider-container
 {
   margin: auto;
 }
 
-       .calculate-projector-item {
-      width: 50%;
-      margin: auto;
-      margin-bottom: 50px;
-    }
-    .calculate-projector-slider-container {
-      position: relative;
-      width: 300px;
-    }
-    .calculate-projector-slider-labels {
-      display: flex;
-      justify-content: space-between;
-    }
-    .calculate-projector-slider input[type="range"] {
-      width: 100%;
-      -webkit-appearance: none; /* Usunięcie domyślnego wyglądu WebKit */
-      appearance: none; /* Usunięcie domyślnego wyglądu */
-      height: 8px; /* Wysokość paska */
-      background: #d3d3d3; /* Kolor tła paska */
-      outline: none; /* Usunięcie konturu */
-      opacity: 0.7; /* Przezroczystość */
-      transition: opacity .2s; /* Przejście przy zmianie stanu */
-    }
-    .calculate-projector-slider input[type="range"]:hover {
-      opacity: 1; /* Zwiększenie przezroczystości przy najechaniu myszką */
-    }
-    .calculate-projector-slider input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none; /* Usunięcie domyślnego wyglądu WebKit */
-      appearance: none; /* Usunięcie domyślnego wyglądu */
-      width: 25px; /* Szerokość wskaźnika */
-      height: 25px; /* Wysokość wskaźnika */
-      background: #303C4B; /* Kolor wskaźnika */
-      cursor: pointer; /* Zmiana kursora */
-      border-radius: 50%; /* Zaokrąglenie wskaźnika */
-    }
-    .calculate-projector-slider input[type="range"]::-moz-range-thumb {
-      width: 25px; /* Szerokość wskaźnika */
-      height: 25px; /* Wysokość wskaźnika */
-      background: #303C4B; /* Kolor wskaźnika */
-      cursor: pointer; /* Zmiana kursora */
-      border-radius: 50%; /* Zaokrąglenie wskaźnika */
-    }
-    .tooltip {
-      position: absolute;
-      bottom: -40px;
-      background-color: #333;
-      color: #fff;
-      padding: 5px;
-      border-radius: 3px;
-      transform: translateX(-50%);
-    }
+.calculate-projector-item {
+  width: 50%;
+  margin: auto;
+  margin-bottom: 50px;
+}
+.calculate-projector-slider-container {
+  position: relative;
+  width: 300px;
+}
+.calculate-projector-slider-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.calculate-projector-slider {
+  position: relative;
+  width: 100%;
+  height: 8px;
+}
+
+.calculate-projector-slider input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: transparent;
+  position: relative;
+  z-index: 3;
+  margin: 0;
+}
+
+.calculate-projector-slider input[type="range"]:hover {
+  opacity: 1; /* Zwiększenie przezroczystości przy najechaniu myszką */
+}
+.calculate-projector-slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #303C4B;
+  cursor: pointer;
+  border-radius: 50%;
+  position: relative;
+  z-index: 3;
+}
+.calculate-projector-slider input[type="range"]::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #303C4B;
+  cursor: pointer;
+  border-radius: 50%;
+  position: relative;
+  z-index: 3;
+}
+
+.calculate-projector-slider input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8px;
+  background: transparent;
+}
+
+
+.calculate-projector-slider .track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: linear-gradient(to right, #d3d3d3 0%, black 0%);
+  z-index: 1;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: -40px;
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 3px;
+  transform: translateX(-50%);
+
+  display: ruby;
+}
 
 .projector-distance-la-in
 {
@@ -1587,6 +1551,7 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
   display: flex;
   text-align: center;
   justify-content: center;
+  margin-bottom: 50px;
 }
 
 .create-projector
@@ -1630,3 +1595,164 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
   justify-content: center;
   text-align: center;
 }
+
+.projector-distance-button {
+  backface-visibility: hidden;
+  background: #303C4B;
+  border: 0;
+  border-radius: .375rem;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Circular,Helvetica,sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  line-height: 1.3;
+  padding: 1rem 1.25rem;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transform: translateZ(0) scale(1);
+  transition: transform .2s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.projector-distance-button:disabled {
+  color: #787878;
+  cursor: auto;
+}
+
+.projector-distance-button:not(:disabled):hover {
+  transform: scale(1.05);
+}
+
+.projector-distance-button:not(:disabled):hover:active {
+  transform: scale(1.05) translateY(.125rem);
+}
+
+.projector-distance-button:focus {
+  outline: 0 solid transparent;
+}
+
+.projector-distance-button:focus:before {
+  border-width: .125rem;
+  content: "";
+  left: calc(-1*.375rem);
+  pointer-events: none;
+  position: absolute;
+  top: calc(-1*.375rem);
+  transition: border-radius;
+  user-select: none;
+}
+
+.projector-distance-button:focus:not(:focus-visible) {
+  outline: 0 solid transparent;
+}
+
+.projector-distance-button:not(:disabled):active {
+  transform: translateY(.125rem);
+}
+
+#your-projector-select-ratio
+{
+  width: 30%;
+}
+
+#width-range
+{
+  background: #d3d3d3;
+}
+
+@media (max-width: 480px){
+  .projector-distance-container
+      {
+        flex-direction: column
+      }
+  
+    .projector-distance-items
+      {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+    
+      .projector-distance-left
+      {
+        width: 100%;
+      }
+  
+      .projector-distance-left-info
+      {
+        margin: auto;
+      }
+
+      .calculate-projector-size-input
+      {
+        width: 30%;
+      }
+  }
+  @media (max-width: 766px) and (min-width: 481px){
+     .projector-distance-container
+      {
+        flex-direction: column
+      }
+  
+    .projector-distance-items
+      {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+    
+      .projector-distance-left
+      {
+        width: 100%;
+      }
+  
+      .projector-distance-left-info
+      {
+        margin: auto;
+      }
+
+      .choose-projector-type
+      {
+        flex-direction: column;
+      }
+
+      .calculate-projector-size-input
+      {
+        width: 20%;
+      }
+  }
+  
+  
+  @media (max-width: 979px) and (min-width: 767px){
+    .projector-distance-container
+    {
+      flex-direction: column
+    }
+    
+    .projector-distance-left
+    {
+      width: 100%;
+    }
+    
+    .projector-distance-items
+    {
+      width: 100%;
+    }
+    
+    .projector-distance-left-info
+    {
+      margin: auto;
+    }
+
+    .calculate-projector-size-input
+      {
+        width: 15%;
+      }
+  }
