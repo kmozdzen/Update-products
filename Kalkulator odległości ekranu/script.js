@@ -468,14 +468,15 @@
     const infoIcons = document.querySelectorAll('[data-tooltip]');
 
     infoIcons.forEach(function (infoIcon) {
-        infoIcon.addEventListener('mouseenter', function () {
+        infoIcon.addEventListener('click', function () {
             let tooltipText = infoIcon.getAttribute('data-tooltip');
+            tooltipElement.classList.toggle('active-info');            
             tooltipElement.innerHTML = 'Odległość rzutu: 114<sup>a</sup> - 185<sup>b</sup> <br> a - minimalna odległość projektora od ekranu <br> b - maksymalna odległość projektora od ekranu ';
-            tooltipElement.style.display = 'block';
+           // tooltipElement.style.display = 'block';
         });
-        infoIcon.addEventListener('mouseleave', function () {
-            tooltipElement.style.display = 'none';
-        });
+        // infoIcon.addEventListener('mouseleave', function () {
+        //     tooltipElement.style.display = 'none';
+        // });
     });
 
 

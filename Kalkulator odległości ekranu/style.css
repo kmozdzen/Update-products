@@ -987,6 +987,7 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
 }
 
 /*calculator*/
+/*calculator*/
 .calculator-container
 {
   display: flex;
@@ -1057,7 +1058,7 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
   
 }
 
-#search-button {
+.search-button {
   backface-visibility: hidden;
   background: #0370ae;
   border: 0;
@@ -1083,24 +1084,24 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
   margin: 1rem;
 }
 
-#search-button:disabled {
+.search-button:disabled {
   color: #787878;
   cursor: auto;
 }
 
-#search-button:not(:disabled):hover {
+.search-button:not(:disabled):hover {
   transform: scale(1.05);
 }
 
-#search-button:not(:disabled):hover:active {
+.search-button:not(:disabled):hover:active {
   transform: scale(1.05) translateY(.125rem);
 }
 
-#search-button:focus {
+.search-button:focus {
   outline: 0 solid transparent;
 }
 
-#search-button:focus:before {
+.search-button:focus:before {
   border-width: .125rem;
   content: "";
   left: calc(-1*.375rem);
@@ -1111,15 +1112,15 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
   user-select: none;
 }
 
-#search-button:focus:not(:focus-visible) {
+.search-button:focus:not(:focus-visible) {
   outline: 0 solid transparent;
 }
 
-#search-button:not(:disabled):active {
+.search-button:not(:disabled):active {
   transform: translateY(.125rem);
 }
 
-#select-ratio
+.select-ratio
 {
   width: 82%;
   min-height: 40px;
@@ -1342,6 +1343,188 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
 {
   font-size: 1rem;
 }
+.projector-view {
+  width: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  animation: slideIn 1s forwards; /* Dodanie animacji */
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.projector-image
+{
+  width: 300px;
+  margin: auto;
+}
+
+.projector-content
+{
+  width: 100%;
+}
+@media (max-width: 480px){
+.projector-distance-container
+    {
+      flex-direction: column
+    }
+
+  .projector-distance-items
+    {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+  
+    .projector-distance-left
+    {
+      width: 100%;
+    }
+
+    .projector-distance-left-info
+    {
+      margin: auto;
+    }
+  
+  	.projector-image
+    {
+      width: 200px;
+    }
+}
+@media (max-width: 766px) and (min-width: 481px){
+   .projector-distance-container
+    {
+      flex-direction: column
+    }
+
+  .projector-distance-items
+    {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+  
+    .projector-distance-left
+    {
+      width: 100%;
+    }
+
+    .projector-distance-left-info
+    {
+      margin: auto;
+    }
+}
+
+
+@media (max-width: 979px) and (min-width: 767px){
+  .projector-distance-container
+  {
+    flex-direction: column
+  }
+  
+  .projector-distance-left
+  {
+    width: 100%;
+  }
+  
+  .projector-distance-items
+  {
+    width: 100%;
+  }
+  
+  .projector-distance-left-info
+  {
+    margin: auto;
+  }
+}
+
+/*ODLEGLOSC PROJEKTORA OD EKRANU*/
+.projector-distance-container
+{
+  display: flex;
+  text-align: center;
+  margin: auto;
+  border: 1px solid #303C4B;
+}
+
+.projector-distance-left
+{
+  width: 30%;
+  background-color: #303C4B;
+  color: white;
+  
+  display:flex
+}
+
+.projector-distance-left-info
+{
+  margin: auto 2rem;
+}
+
+.projector-distance-right
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  width: 70%;
+}
+
+.projector-distance-items
+{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: auto;
+  
+}
+
+.projector-distance-item 
+{
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 50%;
+  margin: auto;
+}
+
+.projector-distance-item  .projector-distance-label
+{
+  font-size: 1rem;
+  margin: auto;
+  margin-top: 0px;
+  margin-bottom: 0.7rem;
+}
+
+.projector-distance-input
+{
+  width: 80%;
+  margin: auto;
+  
+  min-height: 35px;
+  border: 1px solid #d8d8d8;
+  
+  font-size: 0.8rem;
+  
+}
+
+.projector-distance-left-info h2
+{
+  font-size: 1rem;
+}
 
 .projector-view {
   width: 100%;
@@ -1380,10 +1563,6 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
   width: 100%;
 }
 
-.calculate-projector-slider-container {
-  margin: auto;  
-}
-
 .info-icon-container
 {
   margin-top: 50px;
@@ -1392,8 +1571,8 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
   justify-content: flex-end;
 }
 
-.info-icon {
-  width: 5%;
+.info-icon-container .info-icon {
+  width: 2vw;
 }
 
 .info-icon:hover {
@@ -1421,7 +1600,8 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
 }
 .calculate-projector-slider-container {
   position: relative;
-  width: 300px;
+  width: 100%;
+  margin: auto;  
 }
 .calculate-projector-slider-labels {
   display: flex;
@@ -1489,7 +1669,7 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
 
 .tooltip {
   position: absolute;
-  bottom: -40px;
+  bottom: -50px;
   background-color: #333;
   color: #fff;
   padding: 5px;
@@ -1603,7 +1783,8 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
 
 #create-projector-button
 {
-  margin: 20px;
+  margin: 20px auto;
+  text-align: center;
 }
 
 .create-projector-input-container {
@@ -1697,6 +1878,11 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
   background: #d3d3d3;
 }
 
+.active-info
+{
+  display: block;
+}
+
 @media (max-width: 480px){
   .projector-distance-container
       {
@@ -1723,6 +1909,41 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
       .calculate-projector-size-input
       {
         width: 30%;
+      }
+  
+   	  .choose-projector-type
+      {
+        flex-direction: column;
+      }
+  
+  	  .create-projector
+  	  {
+        width: 70%;
+      }
+  
+  	  #create-projector-button
+  	  {
+        font-size: 0.8rem;
+    	width: 100%;
+    	margin: 20px auto;
+      }
+  
+  	  #your-projector-select-ratio
+      {
+        width: 45%;
+      }
+  
+  	  .calculate-projector .projector-visual .projector-icon
+      {
+        width: 25%;
+      }
+  
+  	  .line-img-container {
+        width: 50%
+      }
+  
+  	  .info-icon-container .info-icon {
+        width: 7vw;
       }
   }
   @media (max-width: 766px) and (min-width: 481px){
