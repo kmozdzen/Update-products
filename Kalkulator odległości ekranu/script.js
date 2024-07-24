@@ -36,6 +36,12 @@
     const maxWidthRange = 500; // maksymalna wartość szerokości ekranu na pasku
     const maxDistanceRange = 1000; // maksymalna odleglosc projektora od ekranu na pasku
 
+    const throwRange = document.getElementById('throw-range');
+    const throwTooltip = document.getElementById('throw-tooltip');
+    const track = document.createElement('div');
+    track.className = 'track';
+    throwRange.parentNode.insertBefore(track, throwRange);
+
     // dane dla istniejacych projektorow
    const options = {
       "Epson": {
@@ -73,6 +79,33 @@
         }
       }
     };
+    // funkcja do zerowania pasków
+    const clear_ranges = () => {
+      // const blackStartPosition = 0;
+      // const blackEndPosition = blackStartPosition + 100;
+  
+      // // Ustawienie gradientu dla paska
+      // track.style.background = `linear-gradient(to right, #d3d3d3  0%, #d3d3d3  ${blackStartPosition}px, black ${blackStartPosition}px ${blackEndPosition}px, #d3d3d3  ${blackEndPosition}px 100%)`;
+  
+      const minValue = parseFloat(minValueInput.value);
+      const maxValue = parseFloat(maxValueInput.value);
+    
+      a_projector_ratio.textContent = your_projector_select_ratio.value;
+      a_projector_throw_min.textContent = minValue;
+      a_projector_throw_max.textContent = maxValue;
+      
+      screen_width_input.value = '0';
+      screen_throw_input.value = '0';
+      
+      updateRange(throw_slider, throw_tooltip, 0);
+      updateRange(width_slider, width_tooltip, 0);
+      
+      width_slider.value = 0;
+      throw_slider.value = 0;
+
+      throwTooltip.style.left = 0;
+    }
+
     
     // pokazywanie i chowanie się kontentu dla tworzenia własnego projektora
     create_projector_button.addEventListener('click', () => {
@@ -152,21 +185,17 @@
         projector_image.src = "https://sklep5534602.homesklep.pl/upload/default-projector.png";
         
         // wyzerowanie paskow
-        const minValue = parseFloat(minValueInput.value);
-        const maxValue = parseFloat(maxValueInput.value);
-      
-        a_projector_ratio.textContent = your_projector_select_ratio.value;
-        a_projector_throw_min.textContent = minValue;
-        a_projector_throw_max.textContent = maxValue;
-        
-        screen_width_input.value = '0';
-        screen_throw_input.value = '0';
-        
-        updateRange(throw_slider, throw_tooltip, 0);
-        updateRange(width_slider, width_tooltip, 0);
-        
-        width_slider.value = 0;
-        throw_slider.value = 0;
+        clear_ranges();
+
+        // ustawienie zdjecia ekranu
+        if(a_projector_ratio.innerHTML == '4:3'){
+          projector_screen_img.src = "https://sklep5534602.homesklep.pl/upload/projector-screen4.png";
+        } else if(a_projector_ratio.innerHTML == '16:9'){
+          projector_screen_img.src = "https://sklep5534602.homesklep.pl/upload/projector-screen_16_9.png";
+        } else if(a_projector_ratio.innerHTML == '16:10'){
+          projector_screen_img.src = "https://sklep5534602.homesklep.pl/upload/projector-screen_16_10.png";
+        }
+
       }
     });
   
@@ -175,6 +204,8 @@
     
     // zmiany przy wyborze producenta
     select_producer.addEventListener("change", () => {
+      clear_ranges();
+
       const producer = select_producer.value; // ustawia producenta na zmiennej
       select_model.disabled = !producer;
       projector_view.style.display = "none";
@@ -200,10 +231,21 @@
     
     // zmiany przy wyborze modelu, pokazuje lub ukrywa dane
     select_model.addEventListener("change", () => {
+      clear_ranges();
+      
       if(select_model.value != 'wybierz'){
         getProjectorInfo();
         projector_view.style.display = "flex";
         calculate_projector.style.display = "flex";
+        
+        // ustawienie zdjecia ekranu
+        if(a_projector_ratio.innerHTML == '4:3'){
+          projector_screen_img.src = "https://sklep5534602.homesklep.pl/upload/projector-screen4.png";
+        } else if(a_projector_ratio.innerHTML == '16:9'){
+          projector_screen_img.src = "https://sklep5534602.homesklep.pl/upload/projector-screen_16_9.png";
+        } else if(a_projector_ratio.innerHTML == '16:10'){
+          projector_screen_img.src = "https://sklep5534602.homesklep.pl/upload/projector-screen_16_10.png";
+        }
       }
       else{
         projector_view.style.display = "none";
@@ -348,30 +390,32 @@
     };
 
     width_slider.addEventListener('input', (e) => {
-      const value = parseInt(width_slider.value * parseFloat(a_projector_throw_max.textContent));
-      if (value < maxDistanceRange) {
+    ////  const value = parseInt(width_slider.value * parseFloat(a_projector_throw_max.textContent));
+   //   if (value < maxDistanceRange) {
         updateWidthTooltip(width_slider, width_tooltip, screen_width_input);
-      }
+        // updateTrack(throwRange);
+ 
+   // }
     });
 
     throw_slider.addEventListener('input', (e) => {
-      if (width_slider.value != maxWidthRange) {
+     // if (width_slider.value != maxWidthRange) {
         updateThrowTooltip(throw_slider, throw_tooltip, screen_throw_input);
-      }
+     // }
     });
 
-    width_slider.addEventListener('mousedown', (e) => {
-      const value = parseInt(width_slider.value * parseFloat(a_projector_throw_max.textContent));
-      if (value.value >= maxDistanceRange) {
-        e.preventDefault();
-      }
-    });
+    // width_slider.addEventListener('mousedown', (e) => {
+    //   const value = parseInt(width_slider.value * parseFloat(a_projector_throw_max.textContent));
+    //   if (value.value >= maxDistanceRange) {
+    //     e.preventDefault();
+    //   }
+    // });
 
-    throw_slider.addEventListener('mousedown', (e) => {
-      if (width_slider.value == maxWidthRange) {
-        e.preventDefault();
-      }
-    });
+    // throw_slider.addEventListener('mousedown', (e) => {
+    //   if (width_slider.value == maxWidthRange) {
+    //     e.preventDefault();
+    //   }
+    // });
     
     // wpisywanie szerokosci ekranu
     screen_width_input.addEventListener('input', () => {
@@ -417,42 +461,52 @@
       updateRange(width_slider, width_tooltip, width_value);
       screen_width_input.value = width_value;
       width_slider.value = width_value;
-    });  
+    }); 
+    
+    // ikona z dodatkową informacją
+    const tooltipElement = document.getElementById('throw-info-tooltip');
+    const infoIcons = document.querySelectorAll('[data-tooltip]');
 
-    const throwRange = document.getElementById('throw-range');
-const throwTooltip = document.getElementById('throw-tooltip');
-const track = document.createElement('div');
-track.className = 'track';
-throwRange.parentNode.insertBefore(track, throwRange);
+    infoIcons.forEach(function (infoIcon) {
+        infoIcon.addEventListener('mouseenter', function () {
+            let tooltipText = infoIcon.getAttribute('data-tooltip');
+            tooltipElement.innerHTML = 'Odległość rzutu: 114<sup>a</sup> - 185<sup>b</sup> <br> a - minimalna odległość projektora od ekranu <br> b - maksymalna odległość projektora od ekranu ';
+            tooltipElement.style.display = 'block';
+        });
+        infoIcon.addEventListener('mouseleave', function () {
+            tooltipElement.style.display = 'none';
+        });
+    });
 
-const updateTrack = (slider) => {
-    const min = slider.min;
-    const max = slider.max;
-    const value = slider.value;
-    const percentage = ((value - min) / (max - min)) * 100;
 
-    // Obliczanie pozycji wskaźnika w pikselach
-    const sliderWidth = slider.offsetWidth;
-    const thumbPosition = (percentage / 100) * sliderWidth;
-    const blackStartPosition = thumbPosition;
-    const blackEndPosition = blackStartPosition + 100;
+// const updateTrack = (slider) => {
+//     const min = slider.min;
+//     const max = slider.max;
+//     const value = slider.value;
+//     const percentage = ((value - min) / (max - min)) * 100;
 
-    // Ustawienie gradientu dla paska
-    track.style.background = `linear-gradient(to right, #d3d3d3  0%, #d3d3d3  ${blackStartPosition}px, black ${blackStartPosition}px ${blackEndPosition}px, #d3d3d3  ${blackEndPosition}px 100%)`;
+//     // Obliczanie pozycji wskaźnika w pikselach
+//     const sliderWidth = slider.offsetWidth;
+//     const thumbPosition = (percentage / 100) * sliderWidth;
+//     const blackStartPosition = thumbPosition;
+//     const blackEndPosition = blackStartPosition + 100;
 
-    //throwTooltip.textContent = value;
+//     // Ustawienie gradientu dla paska
+//     track.style.background = `linear-gradient(to right, #d3d3d3  0%, #d3d3d3  ${blackStartPosition}px, black ${blackStartPosition}px ${blackEndPosition}px, #d3d3d3  ${blackEndPosition}px 100%)`;
 
-    const thumbWidth = 25;
-    const thumbOffset = (thumbWidth / 2) * (percentage / 100);
-    throwTooltip.style.left = `calc(${percentage}% + ${thumbOffset}px)`;
-};
+//     //throwTooltip.textContent = value;
 
-throwRange.addEventListener('input', () => {
-    updateTrack(throwRange);
-});
+//     const thumbWidth = 25;
+//     const thumbOffset = (thumbWidth / 2) * (percentage / 100);
+//     throwTooltip.style.left = `calc(${percentage}% + ${thumbOffset}px)`;
+// };
 
-// Initialize track on page load
-updateTrack(throwRange);
-});
+// throwRange.addEventListener('input', () => {
+//     updateTrack(throwRange);
+// });
+
+// // Initialize track on page load
+// updateTrack(throwRange);
+ });
     
     
