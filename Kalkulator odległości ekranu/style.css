@@ -1565,14 +1565,15 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
 
 .info-icon-container
 {
-  margin-top: 50px;
+  margin-top: 70px;
 
   display: flex;
   justify-content: flex-end;
 }
 
 .info-icon-container .info-icon {
-  width: 2vw;
+  width: 30px;
+  min-width: 30px;
 }
 
 .info-icon:hover {
@@ -1694,7 +1695,8 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
 
 .calculate-projector .projector-visual .projector-icon
 {
-  width: 10%;
+  width: 70px !important;
+  min-width: 70px !important;
   margin: auto;
   margin-left: 50%;
 }
@@ -1924,8 +1926,8 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
   	  #create-projector-button
   	  {
         font-size: 0.8rem;
-    	width: 100%;
-    	margin: 20px auto;
+        width: 100%;
+        margin: 20px auto;
       }
   
   	  #your-projector-select-ratio
@@ -1933,18 +1935,31 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
         width: 45%;
       }
   
-  	  .calculate-projector .projector-visual .projector-icon
-      {
-        width: 25%;
-      }
-  
   	  .line-img-container {
         width: 50%
       }
-  
-  	  .info-icon-container .info-icon {
-        width: 7vw;
+
+      .info-icon-container
+      {
+        flex-direction: column-reverse;
+        font-size: 0.4rem;
       }
+
+      .info-icon
+      {
+        margin: auto;
+      }
+
+      .projector-image
+      {
+        width: 200px;
+      }
+
+      .projector-visual
+      {
+        display: none;
+      }
+
   }
   @media (max-width: 766px) and (min-width: 481px){
      .projector-distance-container
@@ -1977,6 +1992,27 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
       .calculate-projector-size-input
       {
         width: 20%;
+      }
+
+      .info-icon-container
+      {
+        flex-direction: column-reverse;
+        font-size: 0.4rem;
+      }
+
+      .info-icon
+      {
+        margin: auto;
+      }
+
+      .projector-image
+      {
+        width: 200px;
+      }
+
+      .projector-visual
+      {
+        display: none;
       }
   }
   

@@ -42,41 +42,144 @@
     track.className = 'track';
     throwRange.parentNode.insertBefore(track, throwRange);
 
+    //domena strony
+    const url = 'https://www.ekrany.pl/userdata/public/gfx/';
+
     // dane dla istniejacych projektorow
    const options = {
       "Epson": {
-        "EB-L520U": {
-          image: 'https://www.ekrany.pl/userdata/public/gfx/6974/EB-L52U.jpg',
-          resolution: '1920x1200 (WUXGA)',
-          ratio: '16:9',
-          lens_min: '2.92',
-          lens_max: '4.73'
-        },
         "EH-TW7100": {
-          image: 'https://www.ekrany.pl/userdata/public/gfx/6637/Epson-EH-TW7100-front.jpg',
+          image: url + '6637/Epson-EH-TW7100-front.jpg',
           resolution: '4096x2160 (4K)',
           ratio: '16:9',
           lens_min: '2.95',
           lens_max: '4.77'
+        },
+        "EB-L260F": {
+          image: url + '6662/projektor_epson_eb-l200f.jpg',
+          resolution: '1920x1080 (1080p)',
+          ratio: '16:9',
+          lens_min: '1.32',
+          lens_max: '2.12'
+        },
+        "EH-LS300W": {
+          image: url + '6636/Epson-EH-LS300W-przod.jpg',
+          resolution: '1920x1080 (1080p)',
+          ratio: '16:9',
+          lens_min: '0.26',
+          lens_max: '0.35'
+        },
+        "EH-TW7000": {
+          image: url + '6649/projektor_Epson-EH-TW7000.jpg',
+          resolution: '1920x1080 (1080p)',
+          ratio: '16:9',
+          lens_min: '1.32',
+          lens_max: '2.15'
+        },
+        "EB-L520U": {
+          image: url + '6974/EB-L52U.jpg',
+          resolution: '1920x1200 (WUXGA)',
+          ratio: '16:9',
+          lens_min: '1.35',
+          lens_max: '2.20'
+        },
+        "EB-L630U": {
+          image: url + '6980/EB-L630U.jpg',
+          resolution: '1920x1200 (WUXGA)',
+          ratio: '16:10',
+          lens_min: '1.35',
+          lens_max: '2.20'
+        },
+        "EB-992F": {
+          image: url + '6655/projektor_Epson-EB-992F.jpg',
+          resolution: '1920x1080 (1080p)',
+          ratio: '16:9',
+          lens_min: '2.94',
+          lens_max: '4.78'
         }
       },
       "Optoma": {
         "UHD35X": {
-          image: 'https://www.ekrany.pl/userdata/public/gfx/4491/glw.jpg',
+          image: url + '4491/glw.jpg',
           resolution: '3840x2160 (UHD)',
           ratio: '16:9',
           lens_min: '1.50',
           lens_max: '1.66'
+        },
+        "UHD42": {
+          image: url + '4499/glw.jpg',
+          resolution: '3840x2160 (UHD)',
+          ratio: '16:9',
+          lens_min: '1.21',
+          lens_max: '1.59'
+        },
+        "EH416e": {
+          image: url + '6667/Optoma-EH416e.jpg',
+          resolution: '1920x1080 (1080p)',
+          ratio: '16:9',
+          lens_min: '1.41',
+          lens_max: '2.24'
+        },
+        "HD29HLV": {
+          image: url + '4138/b836dd23-0a30-4b97-a152-4d7d35506598.jpg',
+          resolution: '1920x1080 (1080p)',
+          ratio: '16:9',
+          lens_min: '1.12',
+          lens_max: '1.47'
+        },
+        "HD35UST": {
+          image: url + '5515/Optoma-HD35UST.jpg',
+          resolution: '1920x1080 (1080p)',
+          ratio: '16:9',
+          lens_min: '0.25',
+          lens_max: '0.25'
+        },
+        "UHZ65LV": {
+          image: url + '4511/calosc.jpg',
+          resolution: '3840x2160 (UHD)',
+          ratio: '16:9',
+          lens_min: '1.39',
+          lens_max: '2.22'
+        },
+        "W319USTire": {
+          image: url + 'gfx/4507/glowny.jpg',
+          resolution: '1280x800 (WXGA)',
+          ratio: '16:10',
+          lens_min: '0.27',
+          lens_max: '0.27'
         }
       },
       "Nec": {
         "ME403U": {
-          image: 'https://www.ekrany.pl/userdata/public/gfx/6669/projektor_Nec-ME403U.jpg',
+          image: url + '6669/projektor_Nec-ME403U.jpg',
           resolution: '1920x1200 (WUXGA)',
           ratio: '16:10',
           lens_min: '1.20',
           lens_max: '2.00'
-        }
+        },
+        "ME383W": {
+          image: url + '7062/ME383W_1.jpg',
+          resolution: '1280x800 (WXGA)',
+          ratio: '16:10',
+          lens_min: '1.20',
+          lens_max: '2.00'
+        },
+        "P525UL": {
+          image: url + '6674/NEC_P525UL_P525WL_P605ULjpg.jpg',
+          resolution: '1920x1200 (WUXGA)',
+          ratio: '16:9',
+          lens_min: '1.23',
+          lens_max: '2.00'
+        },
+      },
+      "JVC": {
+        "LX-NZ3": {
+          image: url + '7005/lx-nz3b0.jpg',
+          resolution: '3840x2160 (UHD)',
+          ratio: '16:9',
+          lens_min: '1.36',
+          lens_max: '2.18'
+        },
       }
     };
     // funkcja do zerowania pasków
@@ -202,6 +305,40 @@
     minValueInput.addEventListener('input', updateProportion);
     maxValueInput.addEventListener('input', updateProportion);
     
+    //sortowanie pozycji w modelach
+    const sort_options = () => {
+      let options = Array.from(select_model.options);
+
+      // Zachowaj opcję z value "wybierz"
+      let firstOption = options.find(option => option.value === "wybierz");
+
+      // Filtruj opcje, pomijając tę z value "wybierz"
+      let otherOptions = options.filter(option => option.value !== "wybierz");
+
+      options.sort(function(a, b) {
+          if (a.value < b.value) {
+              return -1;
+          }
+          if (a.value > b.value) {
+              return 1;
+          }
+          return 0;
+      });
+  
+      // Usunięcie wszystkich opcji
+      select_model.innerHTML = "";
+  
+      // Dodaj z powrotem opcję "wybierz" jako pierwszą
+      if (firstOption) {
+        selectElement.add(firstOption);
+      }
+
+      // Dodanie posortowanych opcji z powrotem
+      options.forEach(function(option) {
+          select_model.add(option);
+      });
+    }
+
     // zmiany przy wyborze producenta
     select_producer.addEventListener("change", () => {
       clear_ranges();
@@ -227,6 +364,9 @@
           addOption(model);
         });
       }
+
+      sort_options();
+
     });
     
     // zmiany przy wyborze modelu, pokazuje lub ukrywa dane
