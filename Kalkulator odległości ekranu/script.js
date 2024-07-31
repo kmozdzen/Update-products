@@ -142,7 +142,7 @@
           lens_max: '2.22'
         },
         "W319USTire": {
-          image: url + 'gfx/4507/glowny.jpg',
+          image: url + '4507/glowny.jpg',
           resolution: '1280x800 (WXGA)',
           ratio: '16:10',
           lens_min: '0.27',
@@ -315,7 +315,7 @@
       // Filtruj opcje, pomijając tę z value "wybierz"
       let otherOptions = options.filter(option => option.value !== "wybierz");
 
-      options.sort(function(a, b) {
+      otherOptions.sort(function(a, b) {
           if (a.value < b.value) {
               return -1;
           }
@@ -327,14 +327,14 @@
   
       // Usunięcie wszystkich opcji
       select_model.innerHTML = "";
-  
+
       // Dodaj z powrotem opcję "wybierz" jako pierwszą
       if (firstOption) {
-        selectElement.add(firstOption);
+        select_model.add(firstOption);
       }
 
       // Dodanie posortowanych opcji z powrotem
-      options.forEach(function(option) {
+      otherOptions.forEach(function(option) {
           select_model.add(option);
       });
     }
