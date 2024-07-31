@@ -1701,6 +1701,11 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
   margin-left: 50%;
 }
 
+.calculate-projector .projector-visual .projector-icon:hover
+{
+  cursor: grab;
+}
+
 .projector-visual
 {
   display: flex;
@@ -1713,6 +1718,7 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
   justify-content: center;
   margin: auto 0;
   position: relative; /* Dodano pozycjonowanie relatywne */
+  margin-right: 10px;
 }
 
 .projector-screen-width {

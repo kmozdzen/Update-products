@@ -421,7 +421,7 @@
 
     // zmiana wielkosci obrazka ekranu w zaleznosci od wybranej szerokosci na pasku
     const changeScreenImgSize = () => {
-      const newValue = String(baseScreenWidth +  (parseInt(width_tooltip.textContent) / 4));
+      const newValue = String(baseScreenWidth +  (parseInt(width_tooltip.textContent) / 20));
       projector_screen_img.style.width = newValue + 'px';
     }
     
@@ -619,6 +619,77 @@
         // });
     });
 
+    //TODO 
+
+      let area_projector_icon = document.querySelector('.projector-icon'); // Ikona projektora
+      let initialX = 0; // Wartosc inicjujaca w zaleznosci od polozenia projektora przed kliknieciem
+      let isMouseDown = false; // Sprawdzenie czy przycisk jest wcisniety
+      let currentX = 0; // Aktualna wartosc x przy przemieszczaniu
+      let onePercentValue = 0; // Wartosc x jednego procenta z 50
+      let baseX = 0; // Wartość bazowa przed zmiana wielkosci ekranu
+
+      // Funkcja, ktora wywoluje sie przy zmianie wielkosci strony, dla bazowej
+      windows.onresize = () => {
+        
+      }
+
+      // Dzialanie w przypadku klikniecia i trzymania
+      area_projector_icon.addEventListener('mousedown', function(event) {
+          // Ustawienia początkowe
+          initialX = event.clientX;
+          if(baseX == 0)
+            baseX = event.clientX;
+          isMouseDown = true;
+          console.log(baseX);
+      });
+  
+      // Dzialanie w przypadku przesuwania myszka w lewo, prawo
+      document.addEventListener('mousemove', function(event) {
+          if (isMouseDown) {
+              currentX = event.clientX;
+              if (currentX < initialX) {
+                  const regex = /(\d+)/; //
+                  const currentMarginLeft = area_projector_icon.style.marginLeft.match(regex);
+                
+                  const initMarginLeft = parseInt(currentMarginLeft);
+               
+                  onePercentValue = initialX / initMarginLeft;
+
+                  const diffX = Math.floor((initialX - currentX) / onePercentValue);
+                  const newMarginLeft = Math.floor(initMarginLeft - (diffX));
+                  //console.log(newMarginLeft);
+                  if(newMarginLeft < 0)
+                    area_projector_icon.style.marginLeft = 0 + '%';
+                  else if(newMarginLeft > 50)
+                    area_projector_icon.style.marginLeft = 50 + '%';
+                  else
+                    area_projector_icon.style.marginLeft = newMarginLeft + '%'; 
+                  
+              } else if (currentX > initialX) {
+                const regex = /(\d+)/;
+                const currentMarginLeft = area_projector_icon.style.marginLeft.match(regex);
+              
+                const initMarginLeft = parseInt(currentMarginLeft);
+                const onePercentValue = initialX / initMarginLeft;
+
+                const diffX = Math.floor((initialX - currentX) / onePercentValue);
+
+                const newMarginLeft = Math.floor(initMarginLeft - (diffX));
+        
+                if(newMarginLeft < 0)
+                  area_projector_icon.style.marginLeft = 0 + '%';
+                else if(newMarginLeft > 50)
+                  area_projector_icon.style.marginLeft = 50 + '%';
+                else
+                  area_projector_icon.style.marginLeft = newMarginLeft + '%'; 
+              }
+          }
+      });
+  
+      document.addEventListener('mouseup', function() {
+          // Resetowanie ustawień po zwolnieniu przycisku myszy
+          isMouseDown = false;
+      });
 
 // const updateTrack = (slider) => {
 //     const min = slider.min;
