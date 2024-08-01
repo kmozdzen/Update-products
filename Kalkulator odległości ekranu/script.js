@@ -557,15 +557,28 @@
     //   }
     // });
     
+    //
+    screen_width_input.addEventListener('blur', () => {
+        if(screen_width_input.value === '')
+          screen_width_input.value = "0";
+    });
+
+    screen_throw_input.addEventListener('blur', () => {
+        if(screen_throw_input.value === '')
+          screen_throw_input.value = "0";
+    });
+
     // wpisywanie szerokosci ekranu
     screen_width_input.addEventListener('input', () => {
       const val = parseInt(screen_width_input.value);
-      
+
       // ograniczenie zakresu od 0 - 500
       if (val > 500) screen_width_input.value = "500";
       else if (val < 0) screen_width_input.value = "0";
-    
-      const value = screen_width_input.value;
+      
+      let value = screen_width_input.value;
+      if(value === '')
+        value = 0;
       updateRange(width_slider, width_tooltip, value);
       width_slider.value = value;
     
@@ -588,11 +601,14 @@
       if (val > 1000) screen_throw_input.value = "1000";
       else if (val < 0) screen_throw_input.value = "0";
     
-      const value = screen_throw_input.value;
+      let value = screen_throw_input.value;
+      if(value === '')
+        value = 0;
+
       updateRange(throw_slider, throw_tooltip, value);
       throw_slider.value = value;
     
-      const min_throw = getMinThrow();
+      const min_throw = a_projector_throw_min.textContent;
       let min_throw_int = 0;
       if(min_throw != "")
         min_throw_int = parseFloat(min_throw);
@@ -619,77 +635,53 @@
         // });
     });
 
-    //TODO 
+    //Animacja przesuwanie sie projektora w lewo i praow
 
-      let area_projector_icon = document.querySelector('.projector-icon'); // Ikona projektora
-      let initialX = 0; // Wartosc inicjujaca w zaleznosci od polozenia projektora przed kliknieciem
-      let isMouseDown = false; // Sprawdzenie czy przycisk jest wcisniety
-      let currentX = 0; // Aktualna wartosc x przy przemieszczaniu
-      let onePercentValue = 0; // Wartosc x jednego procenta z 50
-      let baseX = 0; // Wartość bazowa przed zmiana wielkosci ekranu
-
-      // Funkcja, ktora wywoluje sie przy zmianie wielkosci strony, dla bazowej
-      windows.onresize = () => {
-        
-      }
-
-      // Dzialanie w przypadku klikniecia i trzymania
-      area_projector_icon.addEventListener('mousedown', function(event) {
-          // Ustawienia początkowe
-          initialX = event.clientX;
-          if(baseX == 0)
-            baseX = event.clientX;
-          isMouseDown = true;
-          console.log(baseX);
-      });
+    let area_projector_icon = document.querySelector('.projector-icon'); // Ikona projektora
+    let initialX = 0; // Wartosc inicjujaca w zaleznosci od polozenia projektora przed kliknieciem
+    let isMouseDown = false; // Sprawdzenie czy przycisk jest wcisniety
+    let currentX = 0; // Aktualna wartosc x przy przemieszczaniu
+    let baseX = 0; // Wartość bazowa przed zmiana wielkosci ekranu
+    let initialMarginLeft = 0; // Początkowa wartość marginLeft w %
+    
+    // Zdarzenia przy kliknieciu przycisku myszki
+    area_projector_icon.addEventListener('mousedown', function(event) {
+        initialX = event.clientX; // Wartosc x polozenia projektora przed kliknieciem myszki
+        initialMarginLeft = parseInt(area_projector_icon.style.marginLeft || 0); // Wartosc poczatkowa odleglosci projektora od lewej strony 
+        isMouseDown = true; // Ustawienie, ze przyckisk zostal klikniety
+        baseX = event.clientX; // Wartosc x polozenia projektora przed kliknieciem myszki
+    });
+    
+    // Przesuwanie myszka
+    document.addEventListener('mousemove', function(event) {
+        if (isMouseDown) {
+            currentX = event.clientX; // Aktualna pozycja projektora
+            let diffX = currentX - initialX; // Roznica w polozeniu miedzy poczatkowa wartoscia projektora, a wartoscia po przesuniecu
+    
+            let containerWidth = area_projector_icon.parentElement.offsetWidth; // Szerokosc kontenera
+            let percentageChange = (diffX / containerWidth) * 100; // Procentowa zmiana wzgledem wczesniejszej pozycji
+    
+            let newMarginLeft = initialMarginLeft + percentageChange; // Nowa odleglosc od lewej strony
+    
+            // Blokowanie zakresu zmiany pozycji miedzy 0 - 50
+            if (newMarginLeft < 0) {
+                newMarginLeft = 0;
+            } else if (newMarginLeft > 50) {
+                newMarginLeft = 50;
+            }
+    
+            // Ustawienie nowej odleglosci
+            area_projector_icon.style.marginLeft = newMarginLeft + '%';
+            //updateRange(throw_slider, throw_tooltip, 50);
+            console.log('currentX:', currentX);
+            console.log('diffX:', diffX);
+            console.log('newMarginLeft:', newMarginLeft);
+        }
+    });
   
-      // Dzialanie w przypadku przesuwania myszka w lewo, prawo
-      document.addEventListener('mousemove', function(event) {
-          if (isMouseDown) {
-              currentX = event.clientX;
-              if (currentX < initialX) {
-                  const regex = /(\d+)/; //
-                  const currentMarginLeft = area_projector_icon.style.marginLeft.match(regex);
-                
-                  const initMarginLeft = parseInt(currentMarginLeft);
-               
-                  onePercentValue = initialX / initMarginLeft;
-
-                  const diffX = Math.floor((initialX - currentX) / onePercentValue);
-                  const newMarginLeft = Math.floor(initMarginLeft - (diffX));
-                  //console.log(newMarginLeft);
-                  if(newMarginLeft < 0)
-                    area_projector_icon.style.marginLeft = 0 + '%';
-                  else if(newMarginLeft > 50)
-                    area_projector_icon.style.marginLeft = 50 + '%';
-                  else
-                    area_projector_icon.style.marginLeft = newMarginLeft + '%'; 
-                  
-              } else if (currentX > initialX) {
-                const regex = /(\d+)/;
-                const currentMarginLeft = area_projector_icon.style.marginLeft.match(regex);
-              
-                const initMarginLeft = parseInt(currentMarginLeft);
-                const onePercentValue = initialX / initMarginLeft;
-
-                const diffX = Math.floor((initialX - currentX) / onePercentValue);
-
-                const newMarginLeft = Math.floor(initMarginLeft - (diffX));
-        
-                if(newMarginLeft < 0)
-                  area_projector_icon.style.marginLeft = 0 + '%';
-                else if(newMarginLeft > 50)
-                  area_projector_icon.style.marginLeft = 50 + '%';
-                else
-                  area_projector_icon.style.marginLeft = newMarginLeft + '%'; 
-              }
-          }
-      });
-  
-      document.addEventListener('mouseup', function() {
-          // Resetowanie ustawień po zwolnieniu przycisku myszy
-          isMouseDown = false;
-      });
+    document.addEventListener('mouseup', function() {
+        isMouseDown = false;
+    });
 
 // const updateTrack = (slider) => {
 //     const min = slider.min;
