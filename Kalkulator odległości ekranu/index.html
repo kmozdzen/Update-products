@@ -8,11 +8,11 @@
         <div class="projector-distance-left">
         <div class="projector-distance-left-info">
             <h2>KALKULATOR OGLEGŁOŚCI PROJEKTORA OD EKRANU</h2>
-            <p>Pozwala na obliczenie optymalnego umieszczenia projektora w zależności od wielkości ekranu or odległości siedzących osób</p>
+            <p>Pozwala na obliczenie optymalnego umieszczenia projektora w zależności od wielkości ekranu</p>
         </div>
         </div>
         <div class="projector-distance-right">
-        <div class="choose-projector-type">
+            <div class="choose-projector-type">
             <div class="projector-distance-items">
             <div class="projector-distance-item">
                 <h3 class="projector-distance-label">Producent</h3>
@@ -32,31 +32,29 @@
             </div>
             </div>
         <div class="create-projector">
-        <button id="create-projector-button">Stwórz swój projektor</button>
-        <div class="create-projector-content">
+        <button class="projector-distance-button" id="create-projector-button">Stwórz swój projektor</button>
+        <div class="create-projector-content" style="display: none;">
             <div class="create-projector-item">
                 <label id = "create-projector-ratio-label" for="create-projector-ratio-input"> Proporcje: <p/>
-                <select id="your-projector-select-ratio">
+                <select class="projector-distance-input" id="your-projector-select-ratio">
                     <option>16:9</option>
                     <option>16:10</option>
                     <option>4:3</option>
-                    <option>1:1</option>
                 </select>
             </div>
             <div class="create-projector-throw-container">
                 <label id = "create-projector-throw-label" for="create-projector-throw-input"> Rzut: <p/>
                     <div class="create-projector-input-container">
                     <label for="create-projector-min-value">Min:</label>
-                    <input type="number" id="create-projector-min-value" step="0.01" value="1.09">
-                    <span> - </span>
+                    <input type="number" class="projector-distance-input" id="create-projector-min-value" step="0.01" value="1.09" min="0.00" max="10.00">
                     <label for="create-projector-max-value">Max:</label>
-                    <input type="number" id="create-projector-max-value" step="0.01" value="1.77">
+                    <input type="number" class="projector-distance-input" id="create-projector-max-value" step="0.01" value="1.77" min="0.00" max="10.00">
                     </div>
                     <div class="create-projector-result-container">
                     <p><span id="create-projector-result">1,09 - 1,77</span> : 1</p>
                     </div>
             </div>
-            <button id="create-projector-submit">Stwórz</button>
+            <button class="projector-distance-button" id="create-projector-submit">Stwórz</button>
         </div>
         </div>
     </div>
@@ -68,8 +66,7 @@
                 <h4 id = "projector-content-name"><h4/>  
                 <p id = "projector-content-resolution">Rozdzielczość: <p/>
                         <p id="projector-content-ratio">Proporcje: <span id="projector-ratio">16:9</span></p>
-                        <p id="projector-content-throw">Rzut: <span id="projector-throw-min">2.00</span> - <span id="projector-throw-max">5.00</span></p>
-                </div
+                        <p id="projector-content-throw">Rzut: <span id="projector-throw-min">2.00</span> - <span id="projector-throw-max">5.00</span> : 1</p>                
                 </div>
         </div>
         <div class = "calculate-projector">
@@ -99,15 +96,23 @@
             <input class="projector-distance-input calculate-projector-size-input" id="calculate-projector-throw-input-id" />
             </div>
             <div class="calculate-projector-slider-container">
-            <div class="calculate-projector-slider-labels">
-                <span>0cm</span>
-                <span>1000cm</span>
-            </div>
-            <div class="calculate-projector-slider">
-                <input type="range" min="0" max="1000" value="0" id="throw-range">
-                <div id="throw-tooltip" class="tooltip">0</div>
-            </div>
-            </div>
+                <div>
+                    <div class="calculate-projector-slider-labels">
+                        <span>0cm</span>
+                        <span>1000cm</span>
+                    </div>
+                    <div class="calculate-projector-slider">
+                        <input type="range" min="0" max="1000" value="0" id="throw-range">
+                        <div id="throw-tooltip" class="tooltip">0</div>
+                    </div>
+                </div>
+            </div>   
+            <div class="info-icon-container">
+                <div class="info-tooltip" id="throw-info-tooltip"></div>  
+                <svg class="info-icon" data-tooltip="Tooltip on right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/>
+                </svg>   
+            </div>        
         </div>
         <div class="projector-visual">
             <svg class="projector-icon" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
@@ -155,13 +160,12 @@
                 c12.393,0,22.475,10.083,22.475,22.475S373.5,246.259,361.107,246.259z"/>
             </svg>
             <div class="line-img-container">
-            <img id="line-img" src="https://sklep5534602.homesklep.pl/upload/linia.png" alt="" height="50" />
             <p id="line-value">0</p>
             </div>
             <div class="projector-screen-container">
             <div class="projector-screen-width">
             <p id="img-width">0</p>
-            <img id="projector-screen-img" src="https://sklep5534602.homesklep.pl/upload/projector-screen4.png" alt="" width="200" height="200" />
+            <img id="projector-screen-img" src="https://sklep5534602.homesklep.pl/upload/projector-screen4.png" alt="" width="100" height="200" />
             </div>
             <p id="img-height">0</p>
             </div>
