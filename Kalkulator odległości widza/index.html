@@ -1,0 +1,51 @@
+<html>
+<head>
+    <title>Kalkulator odległości widza od ekranu</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="projector-distance-container">
+        <div class="projector-distance-left">
+        <div class="projector-distance-left-info">
+            <h2>KALKULATOR OGLEGŁOŚCI WIDZA OD EKRANU</h2>
+            <p>Pozwala na obliczenie optymalnej odległości widza od ekranu</p>
+        </div>
+        </div>
+        <div class="projector-distance-right">
+            <div class="spectator-distance-calculator">
+                <div class="spectator-distance-screen-type-container">
+                    <h3>Wybierz typ ekranu</h3>
+                    <div class="spectator-distance-buttons">
+                        <button class="spectator-distance-screen-type-button">
+                            16:9
+                        </button>
+                        <button class="spectator-distance-screen-type-button">
+                            4:3
+                        </button>
+                        <button class="spectator-distance-screen-type-button">
+                            16:10
+                        </button>
+                        <button class="spectator-distance-screen-type-button">
+                            1:1
+                        </button>
+                    </div>
+                </div>
+                <div class="spectator-distance-content">
+                    <div class="spectator-distance-content-center">
+                        <div class="spectator-distance-width-container">
+                            <label for="spectator-distance-width-input">Szerokość ekranu</label>
+                            <input type="number" class="projector-distance-input" id="spectator-distance-width-input" min="0" max="500">
+                        </div>
+                        <button class="projector-distance-button" id="spectator-distance-calculate-button">Oblicz</button>
+                        <div class="spectator-distance-results">
+                            <label for="spectator-distance-max-viewing">Odległość widza od ekranu: </label>
+                            <input class="projector-distance-input" id="spectator-distance-max-viewing" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
