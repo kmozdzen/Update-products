@@ -1807,12 +1807,15 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
 }
 .create-projector-result-container {
   margin-top: 20px;
+  display: none;
 }
 .create-projector-throw-container
 {
   display: flex;
   justify-content: center;
   text-align: center;
+  flex-direction: column;
+  margin-top: 20px;
 }
 
 .projector-distance-button {

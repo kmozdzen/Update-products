@@ -3,7 +3,7 @@ const spectator_distance_width_input = document.getElementById("spectator-distan
 const spectator_distance_calculate_button = document.getElementById("spectator-distance-calculate-button");
 const spectator_distance_max_viewing = document.getElementById("spectator-distance-max-viewing");
 const color_before_click = "white";
-const color_after_click = "#303C4B";
+const color_after_click = "rgb(48, 60, 75)";
 
 const max_viewing_factor_16_9 = 4.524; // Współczynnik dla 16:9
 const max_viewing_factor_16_10 = 4.404; // Współcznnik dla 16:10
@@ -51,22 +51,40 @@ spectator_distance_width_input.addEventListener('keypress', (e) => {
 
 // obliczanie odległości widza od ekranu
 spectator_distance_calculate_button.addEventListener("click", () => {
-    
     format_buttons.forEach(button => {
         if(button.style.backgroundColor == color_after_click){
             let max_viewing_factor = 0;
-
+            let width_ratio = 0;
+            let height_ratio = 0;
+            
             if(button.innerText == "16:9"){
                  max_viewing_factor = max_viewing_factor_16_9;
+                 
+                 width_ratio = 16;
+                 height_ratio = 9;
             } else if(button.innerText == "16:10"){
                  max_viewing_factor = max_viewing_factor_16_10;
+            
+                 width_ratio = 16;
+                 height_ratio = 10;
             } else if(button.innerText == "4:3"){
                  max_viewing_factor = max_viewing_factor_4_3;
+            
+                 width_ratio = 4;
+                 height_ratio = 3;
             } else if(button.innerText == "1:1"){
                  max_viewing_factor = max_viewing_factor_1_1;
+            
+                 width_ratio = 1;
+                 height_ratio = 1;
             } 
 
-            const max_viewing = spectator_distance_width_input.value * max_viewing_factor * inch_to_cm;
+            //obliczanie diagonali z szerokosci
+            const diagonal = Math.sqrt(spectator_distance_width_input.value);
+            //
+
+
+            const max_viewing = diagonal * max_viewing_factor * inch_to_cm;
             spectator_distance_max_viewing.value = Math.round(max_viewing);
         }
         
