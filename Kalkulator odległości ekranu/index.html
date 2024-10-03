@@ -3,7 +3,7 @@
     <title>Kalkulator odległości projektora</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
+<body><!-- -->
     <div class="projector-distance-container">
         <div class="projector-distance-left">
         <div class="projector-distance-left-info">
@@ -16,7 +16,7 @@
             <div class="projector-distance-items">
             <div class="projector-distance-item">
                 <h3 class="projector-distance-label">Producent</h3>
-                <select id="projector-distance-select-producer" class="projector-distance-input"/>
+                <select id="projector-distance-select-producer" class="projector-distance-input">
                 <option value="wybierz">Wybierz...</option>
                 <option value="Epson">Epson</option>
                 <option value="Optoma">Optoma</option>
@@ -26,7 +26,7 @@
             </div>
             <div class="projector-distance-item">
                 <h3 class="projector-distance-label">Model</h3>
-                <select id="projector-distance-select-model" class="projector-distance-input"/>
+                <select id="projector-distance-select-model" class="projector-distance-input">
                 <option value="wybierz">Wybierz...</option>
                 </select>
             </div>
@@ -35,7 +35,7 @@
         <button class="projector-distance-button" id="create-projector-button">Stwórz swój projektor</button>
         <div class="create-projector-content" style="display: none;">
             <div class="create-projector-item">
-                <label id = "create-projector-ratio-label" for="create-projector-ratio-input"> Proporcje: <p/>
+                <label id="create-projector-ratio-label" for="create-projector-ratio-input">Proporcje:</label>
                 <select class="projector-distance-input" id="your-projector-select-ratio">
                     <option>16:9</option>
                     <option>16:10</option>
@@ -43,7 +43,7 @@
                 </select>
             </div>
             <div class="create-projector-throw-container">
-                <label id = "create-projector-throw-label" for="create-projector-throw-input"> Rzut: <p/>
+                <label id="create-projector-throw-label" for="create-projector-throw-input">Rzut:</label>
                     <div class="create-projector-input-container">
                     <label for="create-projector-min-value">Min:</label>
                     <input type="number" class="projector-distance-input" id="create-projector-min-value" step="0.01" value="1.09" min="0.00" max="10.00">
@@ -60,27 +60,27 @@
     </div>
             <div class="projector-view">
             <div class="projector-image-container"> 
-                <img class = "projector-image" src="https://sklep5534602.homesklep.pl/upload/default-projector.png">
+                <img class="projector-image" src="https://sklep5534602.homesklep.pl/upload/default-projector.png">
             </div>
             <div class="projector-content">
-                <h4 id = "projector-content-name"><h4/>  
-                <p id = "projector-content-resolution">Rozdzielczość: <p/>
+                <h4 id="projector-content-name"></h4>  
+                <p id="projector-content-resolution">Rozdzielczość: </p>
                         <p id="projector-content-ratio">Proporcje: <span id="projector-ratio">16:9</span></p>
                         <p id="projector-content-throw">Rzut: <span id="projector-throw-min">2.00</span> - <span id="projector-throw-max">5.00</span> : 1</p>                
                 </div>
         </div>
-        <div class = "calculate-projector">
+        <div class="calculate-projector">
         <div class="calculate-projector-item">
             <div class="projector-distance-la-in">
-            <label for="calculate-projector-size-input-id">
+            <label class="calculaate-projector-label-label" for="calculate-projector-size-input-id">
                 <h3 class="calculaate-projector-label">Szerokość ekranu</h3>
             </label>
             <input class="projector-distance-input calculate-projector-size-input" id="calculate-projector-size-input-id" />
             </div>
             <div class="calculate-projector-slider-container">
             <div class="calculate-projector-slider-labels">
-                <span>0cm</span>
-                <span>500cm</span>
+                <span class="calculate-projector-slider-labels-span">0cm</span>
+                <span class="calculate-projector-slider-labels-span">500cm</span>
             </div>
             <div class="calculate-projector-slider">
                 <input type="range" min="0" max="500" value="0" id="width-range">
@@ -90,7 +90,7 @@
         </div>
     <div class="calculate-projector-item">
             <div class="projector-distance-la-in">
-            <label for="calculate-projector-throw-input-id">
+            <label class="calculaate-projector-label-label" for="calculate-projector-throw-input-id">
                 <h3 class="calculate-projector-label">Odległość rzutu</h3>
             </label>
             <input class="projector-distance-input calculate-projector-size-input" id="calculate-projector-throw-input-id" />
@@ -98,8 +98,8 @@
             <div class="calculate-projector-slider-container">
                 <div>
                     <div class="calculate-projector-slider-labels">
-                        <span>0cm</span>
-                        <span>1000cm</span>
+                        <span class="calculate-projector-slider-labels-span">0cm</span>
+                        <span class="calculate-projector-slider-labels-span">1000cm</span>
                     </div>
                     <div class="calculate-projector-slider">
                         <input type="range" min="0" max="1000" value="0" id="throw-range">
@@ -112,6 +112,7 @@
                 <svg class="info-icon" data-tooltip="Tooltip on right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                     <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/>
                 </svg>   
+                <img >
             </div>        
         </div>
         <div class="projector-visual">

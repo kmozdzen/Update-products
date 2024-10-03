@@ -1807,15 +1807,12 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
 }
 .create-projector-result-container {
   margin-top: 20px;
-  display: none;
 }
 .create-projector-throw-container
 {
   display: flex;
   justify-content: center;
   text-align: center;
-  flex-direction: column;
-  margin-top: 20px;
 }
 
 .projector-distance-button {
@@ -2051,4 +2048,82 @@ header .logo-bar .search-form{ bottom:0; right:0; position:relative;}
       {
         width: 15%;
       }
+  }
+
+  /*KALKULATOR ODLEGLOSCI WIDZA OD EKRANU*/
+  .spectator-distance-calculator
+  {
+    display: flex;
+  }
+  .spectator-distance-screen-type-button
+  {
+    border: 2px solid black;
+    border-radius: 10px;
+    
+    width: 100px;
+    height: 50px;
+    margin: 10px auto;
+
+    background-color: white;
+  }
+
+  .spectator-distance-screen-type-button:hover
+  {
+    cursor: pointer;
+  }
+
+  .spectator-distance-name
+  {
+    margin: auto;
+  }
+
+  .spectator-distance-screen-type-container
+  {
+    width: 35%;
+  }
+
+  .spectator-distance-content
+  {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .spectator-distance-width-container
+  {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #spectator-distance-width-input
+  {
+    width: 50%;
+  }
+
+  #spectator-distance-calculate-button
+  {
+    width: 20%;
+    min-width: 100px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+
+  }
+  
+  #spectator-distance-max-viewing
+  {
+    margin-top: 30px;
+    width: 30%;
+  }
+
+  .spectator-distance-buttons
+  {
+    display: grid;
+  }
+
+  .spectator-distance-content-center
+  {
+    margin-top: auto;
+    margin-bottom: auto;
   }
